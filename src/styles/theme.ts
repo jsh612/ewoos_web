@@ -1,10 +1,10 @@
 // as const
 //  - 타입을 확정해 버린다.
 const theme = {
-  blueColor: "#3498db",
-  greenColor: "#1abc9c",
-  greyColor: "#7f8c8d",
-  yellowColor: "#f1c40f"
+  pinkColor: "#E48282",
+  doorColor: "#564646",
+  blueColor: "#3897f0",
+  bgColor: "#EAEDED"
 } as const;
 
 export type TTheme = typeof theme;
