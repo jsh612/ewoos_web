@@ -1,44 +1,140 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+﻿# 1. 프론트엔드
 
-## Available Scripts
+### (1) 카테고리 구분
 
-In the project directory, you can run:
+- [ ] 디지털/가전
+- [ ] 패션
+- [ ] 스포츠/레저
+- [ ] 유아동
+- [ ] 생활용품
+- [ ] 기타
 
-### `yarn start`
+### (2) 메인 화면
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [ ] 검색창
+- [ ] 카테고리 바
+      _ 각 카테고리 별 bar
+      _ 전체 보기 bar \* 지역별 보기 고려
+- [ ] 로그인 , 내정보 버튼
+      _ 내 상품 대여
+      _ 대여 상품 관리(상점 관리자 페이지)
+- [ ] 광고판
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### (3) 개별 카테고리 화면
 
-### `yarn test`
+- [ ] 전체 메뉴 햄버거 버튼
+- [ ] 개별 카테고리 제목
+- [ ] 각 품목 리스트
+- [ ] 리스트 보기 전환 버튼(리스트형/ 사진형)
+- [ ] 무한 스크롤
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### (4) 개별 품목 화면
 
-### `yarn build`
+- [ ] 상품 사진 (슬라이드 구현)
+- [ ] 상품 설명
+- [ ] 댓글
+- [ ] 대여자 정보 (아이디, 이름, 평점)
+- [ ] 대여 신청 버튼
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### (5) 대여 신청 화면
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- [ ] 연락처
+- [ ] 대여기간
+- [ ] 주소
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### (6) 상품 올리기 화면
 
-### `yarn eject`
+- [ ] 카테고리
+- [ ] 기간당 가격
+- [ ] 기간 단위 (ex/ 시간, 일)
+- [ ] 제목
+- [ ] 사진 업로드
+- [ ] 설명
+- [ ] 지역 설정
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### (7) 개별 대여자 상점
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [ ] 상점 이름
+- [ ] 상점 설명
+- [ ] 평점
+- [ ] 기타 대여자 정보
+- [ ] 대여중인 상품 목록
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### (8) 대여자의 상점 관리 페이지
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- [ ] 대여 신청 목록
+- [ ] 내 상품 목록
 
-## Learn More
+### (9) 로그인 화면
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [ ] 로그인 구성
+- [ ] 회원가입 버튼
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### (10) 가입화면
+
+- [ ] 아이디
+- [ ] 이름
+- [ ] email (인증필요)
+- [ ] 연락처 (인증필요)
+- [ ] 주소
+- [ ] 개인정보규정 동의 얻기
+
+# 2. 백엔드
+
+### (1) 인증 관련
+
+- [x] 회원가입
+- [x] 휴대폰 번호 인증 요청/ 확인
+- [x] 로그인
+- [x] 내 정보 가져오기
+- [ ] 로그인 횟수 제한
+- [ ] 프로필 변경(상점 정보 포함)
+
+### (2) 상품 관련
+
+- [x] 상품 올리기(사진 업로드 제외)
+- [ ] 상품 올리기에서 사진 업로드와 연관하여 작성(프론트 만들어서 같이)
+- [x] 상품 검색 기능
+- [ ] 카테고리(지역)별 상품 가져오기
+- [x] 댓글 작성
+- [x] 대여 신청
+- [x] 상품별 대여 상태 현황 (신청, 대여됨, 반납됨)
+- [ ] 대여 기간에 대한 처리 필요 (프론트 작성과 함께)
+- [ ] 상품 정보 변경
+
+### (3) 개별 상점(대여자) 관련
+
+- [ ] 평점 / 리뷰 작성
+- [ ] 대여 신청 목록 가져오기
+
+### (4) 보안 관련
+
+- [ ] cors 처리
+- [ ] graphql-yoga playground 속성 false
+- [ ] 추가 보안 문제 찾기
+
+# 3. 시나리오
+
+### (1) 페르소나 1 (20대 남자 대학생)
+
+- 친구들과의 여행을 좋아하는 대학생
+- 이번 여행에는 플스를 대여해서 친구들과 위닝을 하고자한다.
+- 하지만 그의 한달 용돈은 40만원, 자주 사용하지 않는 플스를 사기에는 꺼려진다.
+- 그러던중 같은 지역에 게임기를 대여 할 수 있다고 한다.
+- 그는 이웃집대여소를 이용하여 간편하게 대여 신청을 한다.
+
+### (2) 페르소나 2 (30대 직장인)
+
+- 캠핑을 좋아하는 직장인
+- 캠핑 물건을 모으고, 매주 캠핑을 갈 계획을 세운다.
+- 하지만, 업무가 너무 바쁘고, 한달에 한 두번 가기에도 체력이 부족하다.
+- 그래서 그는 자신의 캠핑 용품을 대여 해주기로 한다.
+
+### (3) 페르소나 3 (20대 여자 대학생)
+
+- 그녀의 인스타그램 팔로우는 1000여명
+- 아이폰으로 일상 사진을 찍고, 게시물을 작성하고 있다.
+- 이번 주말 친구들과 여행을 가기로 한다.
+- 특별한 여행에 영상을 남기고 싶지만, 아이폰으로 영상을 촬영하기에는
+  부족한것 같다.
+- 그래서 이웃집대여소를 통해 액션캠을 대여한다.
