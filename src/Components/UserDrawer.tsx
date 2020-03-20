@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Drawer, Button } from "antd";
+import { Drawer, Modal, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 
 import { TTheme } from "../Styles/theme";
 import { IS_LOGGED_IN } from "../LocalQueries";
+import routes from "../Routes/routes";
+import Login from "./Login/Login";
 
 interface ISProps {
   theme: TTheme;
@@ -24,24 +26,40 @@ const BtnIcon = styled(UserOutlined)`
 
 const CategoryColumn = styled.div`
   font-size: ${(props: ISProps) => props.theme.searchFontSize};
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
 `;
 
 const UserDrawer: React.FC = () => {
-  const [visible, setVisible] = useState<boolean>(false);
+  const [drawerVisible, setDrawVisible] = useState<boolean>(false);
+  const [loginModalBool, setLoginModal] = useState<boolean>(false);
 
   const onClose = () => {
-    setVisible(false);
+    setDrawVisible(false);
   };
   const drawerToggle = () => {
-    if (visible) {
-      return setVisible(false);
+    if (drawerVisible) {
+      return setDrawVisible(false);
     }
-    return setVisible(true);
+    return setDrawVisible(true);
   };
 
   const { data: { auth: { isLoggedIn = null } = {} } = {} } = useQuery(
     IS_LOGGED_IN
   );
+
+  const onLoginClick = () => {
+    return setLoginModal(true);
+  };
+
+  const loginHandlOk = () => {
+    return setLoginModal(false);
+  };
+
+  const loginHandlCancel = () => {
+    return setLoginModal(false);
+  };
 
   return (
     <>
@@ -56,7 +74,7 @@ const UserDrawer: React.FC = () => {
         placement="right"
         closable={false}
         onClose={onClose}
-        visible={visible}
+        visible={drawerVisible}
         width={"150px"}
       >
         {isLoggedIn ? (
@@ -74,14 +92,25 @@ const UserDrawer: React.FC = () => {
         ) : (
           <>
             <CategoryColumn>
-              <Link to="">로그인</Link>
+              <Link to="" onClick={onLoginClick}>
+                로그인
+              </Link>
             </CategoryColumn>
             <CategoryColumn>
-              <Link to="">회원가입</Link>
+              <Link to={routes.SIGNUP}>회원가입</Link>
             </CategoryColumn>
           </>
         )}
       </Drawer>
+      <Modal
+        title="로그인"
+        visible={loginModalBool}
+        footer={null}
+        onOk={loginHandlOk}
+        onCancel={loginHandlCancel}
+      >
+        <Login setLoginModal={setLoginModal} setDrawVisible={setDrawVisible} />
+      </Modal>
     </>
   );
 };

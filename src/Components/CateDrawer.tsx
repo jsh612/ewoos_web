@@ -21,6 +21,9 @@ const BtnIcon = styled(MenuUnfoldOutlined)`
 
 const CategoryColumn = styled.div`
   font-size: ${(props: ISProps) => props.theme.searchFontSize};
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
 `;
 
 const CateDrawer: React.FC = () => {

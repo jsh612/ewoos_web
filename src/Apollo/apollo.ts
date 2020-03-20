@@ -5,7 +5,7 @@ export default new ApolloClient({
   // ApolloClinet 환경설정 옵션
   // https://www.apollographql.com/docs/react/get-started/#configuration-options
 
-  uri: "http://localhost:4000",
+  uri: "http://localhost:4000/graphql",
 
   // #clientState
   // - https://www.apollographql.com/docs/link/links/state/#with-apollo-boost
