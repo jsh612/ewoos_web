@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Drawer, Modal, Button } from "antd";
+import { Drawer, Modal, Button, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 
 import { TTheme } from "../Styles/theme";
-import { IS_LOGGED_IN } from "../LocalQueries";
+import { IS_LOGGED_IN, LOG_USER_OUT } from "../LocalQueries";
 import routes from "../Routes/routes";
 import Login from "./Login/Login";
 
@@ -35,9 +35,9 @@ const UserDrawer: React.FC = () => {
   const [drawerVisible, setDrawVisible] = useState<boolean>(false);
   const [loginModalBool, setLoginModal] = useState<boolean>(false);
 
-  const onClose = () => {
-    setDrawVisible(false);
-  };
+  const [userLogoutMutation] = useMutation(LOG_USER_OUT);
+
+  // drawer 열기/닫기
   const drawerToggle = () => {
     if (drawerVisible) {
       return setDrawVisible(false);
@@ -45,10 +45,12 @@ const UserDrawer: React.FC = () => {
     return setDrawVisible(true);
   };
 
+  // 로그인 여부 확인
   const { data: { auth: { isLoggedIn = null } = {} } = {} } = useQuery(
     IS_LOGGED_IN
   );
 
+  // modal 열기/닫기
   const onLoginClick = () => {
     return setLoginModal(true);
   };
@@ -61,6 +63,12 @@ const UserDrawer: React.FC = () => {
     return setLoginModal(false);
   };
 
+  // 로그아웃
+  const onLogoutClick = async () => {
+    await userLogoutMutation();
+    message.success("로그아웃 되었습니다.");
+    return setDrawVisible(false);
+  };
   return (
     <>
       <MenuBtn
@@ -73,7 +81,7 @@ const UserDrawer: React.FC = () => {
         title="내정보"
         placement="right"
         closable={false}
-        onClose={onClose}
+        onClose={drawerToggle}
         visible={drawerVisible}
         width={"150px"}
       >
@@ -86,7 +94,9 @@ const UserDrawer: React.FC = () => {
               <Link to="">상품 올리기</Link>
             </CategoryColumn>
             <CategoryColumn>
-              <Link to="">기타</Link>
+              <Link to="" onClick={onLogoutClick}>
+                로그아웃
+              </Link>
             </CategoryColumn>
           </>
         ) : (

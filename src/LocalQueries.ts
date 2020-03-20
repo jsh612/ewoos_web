@@ -8,7 +8,7 @@ export const LOG_USER_IN = gql`
 
 export const LOG_USER_OUT = gql`
   mutation logUserOut {
-    loguserOut @client
+    logUserOut @client
   }
 `;
 
