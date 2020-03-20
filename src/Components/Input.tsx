@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { TTheme } from "../Styles/theme";
+
+interface ISprops {
+  theme: TTheme;
+}
 
 const SInput = styled.input`
   border: 0;
-  border: ${props => props.theme.boxBorder};
-  border-radius: ${props => props.theme.borderRadius};
-  background-color: ${props => props.theme.bgColor};
+  border-radius: ${(props: ISprops) => props.theme.borderRadius};
+  background-color: ${(props: ISprops) => props.theme.bgColor};
   height: 35px;
-  font-size: 12px;
+  font-size: ${(props: ISprops) => props.theme.searchFontSize};
   padding: 0px 15px;
 `;
 

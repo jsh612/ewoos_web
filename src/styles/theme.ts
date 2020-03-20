@@ -4,7 +4,10 @@ const theme = {
   pinkColor: "#E48282",
   doorColor: "#564646",
   blueColor: "#3897f0",
-  bgColor: "#EAEDED"
+  bgColor: "#EAEDED",
+  searchFontSize: "1vw",
+  iconSize: "3vw",
+  borderRadius: "10px"
 } as const;
 
 export type TTheme = typeof theme;

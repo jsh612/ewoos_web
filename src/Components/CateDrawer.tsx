@@ -5,22 +5,22 @@ import { MenuUnfoldOutlined } from "@ant-design/icons";
 import { TTheme } from "../Styles/theme";
 import { Link } from "react-router-dom";
 
-interface ISprops {
+interface ISProps {
   theme: TTheme;
 }
 
 const MenuBtn = styled(Button)`
-  width: 3rem;
+  width: ${(props: ISProps) => props.theme.iconSize};
   height: auto;
 `;
 
 const BtnIcon = styled(MenuUnfoldOutlined)`
-  color: ${(props: ISprops) => props.theme.bgColor};
-  font-size: 3rem;
+  color: ${(props: ISProps) => props.theme.bgColor};
+  font-size: ${(props: ISProps) => props.theme.iconSize};
 `;
 
 const CategoryColumn = styled.div`
-  font-size: 1.5rem;
+  font-size: ${(props: ISProps) => props.theme.searchFontSize};
 `;
 
 const CateDrawer: React.FC = () => {
@@ -50,6 +50,7 @@ const CateDrawer: React.FC = () => {
         closable={false}
         onClose={onClose}
         visible={visible}
+        width={"200px"}
       >
         <CategoryColumn>
           <Link to="">디지털/가전</Link>

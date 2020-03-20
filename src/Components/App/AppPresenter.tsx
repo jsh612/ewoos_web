@@ -12,11 +12,7 @@ import styled from "styled-components";
 import Search from "../../Routes/Search";
 
 const Main = styled.main`
-  margin-top: 190px;
-  /* Mobile Device */
-  @media all and (max-width: 790px) {
-    margin-top: 140px;
-  }
+  margin-top: 11vw;
 `;
 
 const AppPresenter: React.FC = () => {

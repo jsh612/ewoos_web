@@ -8,22 +8,22 @@ import { useQuery } from "@apollo/react-hooks";
 import { TTheme } from "../Styles/theme";
 import { IS_LOGGED_IN } from "../LocalQueries";
 
-interface ISprops {
+interface ISProps {
   theme: TTheme;
 }
 
 const MenuBtn = styled(Button)`
-  width: 3rem;
+  width: ${(props: ISProps) => props.theme.iconSize};
   height: auto;
 `;
 
 const BtnIcon = styled(UserOutlined)`
-  color: ${(props: ISprops) => props.theme.bgColor};
-  font-size: 3rem;
+  color: ${(props: ISProps) => props.theme.bgColor};
+  font-size: ${(props: ISProps) => props.theme.iconSize};
 `;
 
 const CategoryColumn = styled.div`
-  font-size: 1.5rem;
+  font-size: ${(props: ISProps) => props.theme.searchFontSize};
 `;
 
 const UserDrawer: React.FC = () => {
@@ -57,6 +57,7 @@ const UserDrawer: React.FC = () => {
         closable={false}
         onClose={onClose}
         visible={visible}
+        width={"150px"}
       >
         {isLoggedIn ? (
           <>

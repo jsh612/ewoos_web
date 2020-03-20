@@ -20,6 +20,7 @@ const Container = styled.header`
   top: 0;
   left: 0;
   width: 100%;
+  height: 10vw;
   background-color: ${(props: ISprops) => props.theme.blueColor};
   padding: 15px;
   display: flex;
@@ -32,7 +33,7 @@ const Wrapper = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 50%;
+  width: 60vw;
   flex-direction: column;
 `;
 
@@ -46,23 +47,21 @@ const Form = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  height: auto;
+  width: 40vw;
 `;
 
 const SearchInput = styled(Input)`
-  background-color: ${props => props.theme.bgColor};
-  padding: 8px;
+  background-color: ${(props: ISprops) => props.theme.bgColor};
+  padding: 5px;
   padding-left: 15px;
-  font-size: 20px;
-  border-radius: 10px;
-  height: auto;
-  width: 100%;
+  border-radius: ${(props: ISprops) => props.theme.borderRadius};
+  height: 2vw;
+  width: 40vw;
+  font-size: ${(props: ISprops) => props.theme.searchFontSize};
   &::placeholder {
     opacity: 0.8;
     font-weight: 400;
-  }
-  @media screen and (max-width: 380px) {
-    font-size: 10px;
   }
   &:focus {
     box-shadow: -2px -2px 10px pink, 2px 2px 10px pink;
