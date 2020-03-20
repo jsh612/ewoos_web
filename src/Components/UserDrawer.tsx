@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Drawer, Modal, Button, message } from "antd";
+import { Drawer, Modal, Button, message, Popconfirm } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/react-hooks";
@@ -69,6 +69,11 @@ const UserDrawer: React.FC = () => {
     message.success("로그아웃 되었습니다.");
     return setDrawVisible(false);
   };
+
+  // 로그아웃 중도 취소
+  const onLogoutCancel = () => {
+    return;
+  };
   return (
     <>
       <MenuBtn
@@ -94,9 +99,15 @@ const UserDrawer: React.FC = () => {
               <Link to="">상품 올리기</Link>
             </CategoryColumn>
             <CategoryColumn>
-              <Link to="" onClick={onLogoutClick}>
-                로그아웃
-              </Link>
+              <Popconfirm
+                title="로그아웃 하시겠습니까?"
+                onConfirm={onLogoutClick}
+                onCancel={onLogoutCancel}
+                okText="네"
+                cancelText="아니요"
+              >
+                <Link to="">로그아웃</Link>
+              </Popconfirm>
             </CategoryColumn>
           </>
         ) : (

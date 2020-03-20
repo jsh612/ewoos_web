@@ -23,6 +23,7 @@ const AppPresenter: React.FC = () => {
         <Switch>
           <Route path={routes.HOME} exact={true} component={Home} />
           <Route path={routes.SEARCH} component={Search} />
+          <Route path={routes.SIGNUP} component={Search} />
           <Redirect from={"*"} to={routes.HOME} />
         </Switch>
       </Main>
