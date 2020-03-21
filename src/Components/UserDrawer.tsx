@@ -31,6 +31,15 @@ const CategoryColumn = styled.div`
   }
 `;
 
+const SModal = styled(Modal)`
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+  height: auto;
+`;
+
 const UserDrawer: React.FC = () => {
   const [drawerVisible, setDrawVisible] = useState<boolean>(false);
   const [loginModalBool, setLoginModal] = useState<boolean>(false);
@@ -152,18 +161,15 @@ const UserDrawer: React.FC = () => {
           setSignupModal={setSignupModal}
         />
       </Modal>
-      <Modal
+      <SModal
         title="회원가입"
         visible={signupModalBool}
         footer={null}
         onOk={signupHandle}
         onCancel={signupHandle}
       >
-        <SignUp
-          setSignupModal={setSignupModal}
-          setDrawVisible={setDrawVisible}
-        />
-      </Modal>
+        <SignUp setSignupModal={setSignupModal} setLoginModal={setLoginModal} />
+      </SModal>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
@@ -10,7 +10,6 @@ import { LOG_USER_IN } from "../../LocalQueries";
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "./Login.queries";
 import { loginVariables, login } from "../../types/api";
-import useInput from "../../Hooks/useInput";
 
 interface ISProps {
   theme: TTheme;
@@ -32,6 +31,8 @@ const BtnWrapper = styled.div`
 
 const BasicBtn = styled(Button)`
   font-size: ${(props: ISProps) => props.theme.searchFontSize};
+  max-width: cals(${(props: ISProps) => props.theme.searchFontSize} * 3);
+  height: auto;
 `;
 
 const SLink = styled(Link)`
@@ -56,8 +57,8 @@ interface IProps {
 }
 
 interface IFormValue {
-  username?: string;
-  password?: string;
+  userId: string;
+  password: string;
 }
 
 const Login: React.FC<IProps> = ({
@@ -65,9 +66,11 @@ const Login: React.FC<IProps> = ({
   setDrawVisible,
   setSignupModal
 }) => {
+  const [form] = Form.useForm();
+
   const history = useHistory();
-  const iDInput = useInput("");
-  const PWInput = useInput("");
+
+  const [oks, setOks] = useState<boolean>(false);
 
   const [userLogInMutation] = useMutation(LOG_USER_IN);
   const [loginMutaion, { loading }] = useMutation<login, loginVariables>(
@@ -76,6 +79,7 @@ const Login: React.FC<IProps> = ({
       onCompleted: async data => {
         const { Login } = data;
         if (Login.ok) {
+          setOks(!oks);
           if (Login.token) {
             try {
               await userLogInMutation({
@@ -88,23 +92,25 @@ const Login: React.FC<IProps> = ({
             }
           }
           message.success(`${Login.username} 님 환영합니다.`);
+          form.resetFields();
           setLoginModal(false);
           setDrawVisible(false);
         } else {
           message.error(Login.error);
         }
-        iDInput.setValue("");
-        PWInput.setValue("");
-      },
-      variables: {
-        userId: iDInput.value,
-        password: PWInput.value
       }
     }
   );
 
-  const onFinish = async (values: IFormValue) => {
-    await loginMutaion();
+  const onFinish = async values => {
+    const { userId, password } = values;
+    await loginMutaion({
+      variables: {
+        userId,
+        password
+      }
+    });
+    form.resetFields();
     history.push(routes.HOME);
   };
 
@@ -113,6 +119,9 @@ const Login: React.FC<IProps> = ({
     setSignupModal(true);
   };
 
+  useEffect(() => {
+    form.resetFields();
+  });
   return (
     <Container>
       <Form
@@ -121,15 +130,10 @@ const Login: React.FC<IProps> = ({
         onFinish={onFinish}
       >
         <SItem
-          name="username"
+          name="userId"
           rules={[{ required: true, message: "아이디를 작성해 주세요" }]}
         >
-          <Input
-            prefix={<UserOutlined />}
-            placeholder="아이디"
-            value={iDInput.value}
-            onChange={iDInput.onChange}
-          />
+          <Input prefix={<UserOutlined />} placeholder="아이디" />
         </SItem>
         <Form.Item
           name="password"
@@ -139,8 +143,6 @@ const Login: React.FC<IProps> = ({
             prefix={<LockOutlined />}
             type="password"
             placeholder="비밀번호"
-            value={PWInput.value}
-            onChange={PWInput.onChange}
           />
         </Form.Item>
         <Form.Item>

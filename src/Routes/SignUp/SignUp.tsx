@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Form, Input, Tooltip, Button } from "antd";
+import { Form, Input, Tooltip, Button, message, notification } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 
 import { TTheme } from "../../Styles/theme";
@@ -11,7 +11,9 @@ import {
   VerifyStart,
   VerifyStartVariables,
   VerifyComplete,
-  VerifyCompleteVariables
+  VerifyCompleteVariables,
+  SignUp,
+  SignUpVariables
 } from "../../types/api";
 
 const formItemLayout = {
@@ -40,13 +42,15 @@ const SForm = styled(Form)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80vw;
+  width: 60vw;
   flex-direction: column;
   padding: 0px;
+  flex-wrap: wrap;
 `;
 
 const SFromItem = styled(Form.Item)`
   width: 50vw;
+  min-width: 30vw;
   height: auto;
   margin: 0.5vw 0vw;
 `;
@@ -56,10 +60,28 @@ const Label = styled.div`
 `;
 
 const SInput = styled(Input)`
+  min-width: 180px;
   max-width: 35vw;
-  width: 70%
   height: auto;
   font-size: ${(props: ISProps) => props.theme.searchFontSize};
+  &::placeholder {
+    font-size: 1vw;
+  }
+`;
+
+const SInputPassword = styled(Input.Password)`
+  min-width: 180px;
+  max-width: 35vw;
+  height: auto;
+  font-size: ${(props: ISProps) => props.theme.searchFontSize};
+`;
+
+const SInputTextArea = styled(Input.TextArea)`
+  min-width: 180px;
+  max-width: 35vw;
+  height: auto;
+  font-size: ${(props: ISProps) => props.theme.searchFontSize};
+  resize: none;
 `;
 
 const BtnFormItem = styled(SFromItem)`
@@ -79,40 +101,84 @@ const SButton = styled(Button)`
 
 interface IProps {
   setSignupModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setDrawVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SignUp: React.FC<IProps> = ({ setSignupModal, setDrawVisible }) => {
+const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
+  const [form] = Form.useForm();
+
   const phoneInput = useInput("");
+  const [modifiedPhone, setModifiedPhone] = useState<string>("");
+
+  // 휴대폰 비밀문자 인증 요청
   const [verifyPhoneMutation] = useMutation<VerifyStart, VerifyStartVariables>(
     VERIFY_START
   );
 
+  // 휴대폰 비밀문자 인증 확인
   const [verfiyCompleteMutation] = useMutation<
     VerifyComplete,
     VerifyCompleteVariables
   >(VERIFY_COMPLETE);
 
-  const onFinish = values => {
-    const { nickname, id, password, phone, secretKey } = values;
-    console.log("phone", phone);
-    // try {
+  // 회원 가입
+  const [signUpMutation] = useMutation<SignUp, SignUpVariables>(SIGN_UP, {
+    onCompleted: () => {
+      notification.success({
+        message: "회원가입이 완료되었습니다",
+        description: "로그인 창으로 이동합니다."
+      });
+      form.resetFields();
+      setSignupModal(false);
+      setLoginModal(true);
+    }
+  });
 
-    // } catch (error) {
-
-    // }
-
-    console.log("Received values of form: ", values);
+  const onFinish = async values => {
+    const { nickname, id, password, secretKey, info } = values;
+    console.log("phone", modifiedPhone);
+    try {
+      await verfiyCompleteMutation({
+        variables: {
+          phoneNumber: modifiedPhone,
+          secretKey
+        }
+      });
+      await signUpMutation({
+        variables: {
+          userId: id,
+          username: nickname,
+          password,
+          info,
+          phoneNumber: modifiedPhone
+        }
+      });
+    } catch (error) {
+      message.error(error);
+    }
   };
 
   const onVerify = async () => {
     // 인증문자 발생
-    const realPhoneNum = `+82${phoneInput.value.slice(1)}`;
-    await verifyPhoneMutation({
-      variables: {
-        phoneNumber: realPhoneNum
+    const modifiedPhoneNum = `+82${phoneInput.value.slice(1)}`;
+    const isValid = /^(?:(010-?\d{4})|(01[1|6|7|8|9]-?\d{3,4}))-?\d{4}$/.test(
+      phoneInput.value
+    );
+    if (isValid) {
+      setModifiedPhone(modifiedPhoneNum);
+      console.log("realphone", modifiedPhoneNum);
+      try {
+        await verifyPhoneMutation({
+          variables: {
+            phoneNumber: modifiedPhoneNum
+          }
+        });
+      } catch (error) {
+        message.error(error);
       }
-    });
+    } else {
+      message.error("올바른 휴대전화 번호를 작성해주세요");
+    }
   };
 
   return (
@@ -131,7 +197,7 @@ const SignUp: React.FC<IProps> = ({ setSignupModal, setDrawVisible }) => {
           rules={[
             {
               required: true,
-              message: "Please input your nickname!",
+              message: "상점이름을 입력해 주세요",
               whitespace: true
             }
           ]}
@@ -158,12 +224,13 @@ const SignUp: React.FC<IProps> = ({ setSignupModal, setDrawVisible }) => {
           rules={[
             {
               required: true,
-              message: "Please input your password!"
+              message: "10자리 이상의 비밀번호를 작성해 주세요",
+              min: 10
             }
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <SInputPassword placeholder="10자리 이상" />
         </SFromItem>
         <SFromItem
           name="confirm"
@@ -173,7 +240,7 @@ const SignUp: React.FC<IProps> = ({ setSignupModal, setDrawVisible }) => {
           rules={[
             {
               required: true,
-              message: "Please confirm your password!"
+              message: "비밀번호 확인란을 작성해주세요"
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
@@ -185,15 +252,26 @@ const SignUp: React.FC<IProps> = ({ setSignupModal, setDrawVisible }) => {
             })
           ]}
         >
-          <Input.Password />
+          <SInputPassword />
+        </SFromItem>
+        <SFromItem
+          name="info"
+          label={<Label>상점 소개글</Label>}
+          rules={[
+            {
+              required: true,
+              message: "상점 소개글을 작성해 주세요",
+              whitespace: true
+            }
+          ]}
+        >
+          <SInputTextArea autoSize={true} />
         </SFromItem>
 
         <SFromItem
           name="phone"
           label={<Label>휴대전화</Label>}
-          rules={[
-            { required: true, message: "Please input your phone number!" }
-          ]}
+          rules={[{ required: true, message: "휴대전화 번호를 작성해 주세요" }]}
         >
           <SInput
             placeholder="숫자만 입력해주세요"
@@ -227,4 +305,4 @@ const SignUp: React.FC<IProps> = ({ setSignupModal, setDrawVisible }) => {
   );
 };
 
-export default SignUp;
+export default SignUpCompo;
