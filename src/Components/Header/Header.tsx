@@ -73,7 +73,7 @@ const Header: React.FC = () => {
   const history = useHistory();
   const onSearchSubmit: React.FormEventHandler = event => {
     event.preventDefault();
-    history.push(`/search?term=${search.value}`, { term: search.value });
+    history.push(`/search?term=${search.value}`);
     search.setValue("");
   };
   return (
