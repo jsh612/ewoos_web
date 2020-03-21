@@ -36,12 +36,12 @@ const BasicBtn = styled(Button)`
 
 const SLink = styled(Link)`
   font-size: ${(props: ISProps) => props.theme.searchFontSize};
-  color: ${(props: ISProps) => props.theme.pinkColor};
-  border-bottom: 1px solid ${(props: ISProps) => props.theme.pinkColor};
+  color: ${(props: ISProps) => props.theme.blueColor};
+  border-bottom: 1px solid ${(props: ISProps) => props.theme.blueColor};
   margin-top: 10px;
   &:hover {
-    color: ${(props: ISProps) => props.theme.blueColor};
-    border-bottom: 1px solid ${(props: ISProps) => props.theme.blueColor};
+    color: ${(props: ISProps) => props.theme.pinkColor};
+    border-bottom: 1px solid ${(props: ISProps) => props.theme.pinkColor};
   }
 `;
 
@@ -52,6 +52,7 @@ const SItem = styled(Form.Item)`
 interface IProps {
   setLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
   setDrawVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setSignupModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IFormValue {
@@ -59,7 +60,11 @@ interface IFormValue {
   password?: string;
 }
 
-const Login: React.FC<IProps> = ({ setLoginModal, setDrawVisible }) => {
+const Login: React.FC<IProps> = ({
+  setLoginModal,
+  setDrawVisible,
+  setSignupModal
+}) => {
   const history = useHistory();
   const iDInput = useInput("");
   const PWInput = useInput("");
@@ -103,6 +108,11 @@ const Login: React.FC<IProps> = ({ setLoginModal, setDrawVisible }) => {
     history.push(routes.HOME);
   };
 
+  const onSignup = () => {
+    setLoginModal(false);
+    setSignupModal(true);
+  };
+
   return (
     <Container>
       <Form
@@ -138,7 +148,9 @@ const Login: React.FC<IProps> = ({ setLoginModal, setDrawVisible }) => {
             <BasicBtn loading={loading} htmlType="submit">
               로그인
             </BasicBtn>
-            <SLink to={routes.SIGNUP}>회원가입으로 이동</SLink>
+            <SLink to="" onClick={onSignup}>
+              회원가입으로 이동
+            </SLink>
           </BtnWrapper>
         </Form.Item>
       </Form>

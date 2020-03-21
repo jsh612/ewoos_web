@@ -29,6 +29,80 @@ export interface loginVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: SignUp
+// ====================================================
+
+export interface SignUp_SignUp {
+  __typename: "SignUpResponse";
+  ok: boolean;
+  error: string | null;
+}
+
+export interface SignUp {
+  SignUp: SignUp_SignUp;
+}
+
+export interface SignUpVariables {
+  userId: string;
+  username: string;
+  password: string;
+  info: string;
+  phoneNumber: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: VerifyStart
+// ====================================================
+
+export interface VerifyStart_VerifyStart {
+  __typename: "VerifyStartResponse";
+  ok: boolean;
+  error: string | null;
+}
+
+export interface VerifyStart {
+  VerifyStart: VerifyStart_VerifyStart;
+}
+
+export interface VerifyStartVariables {
+  phoneNumber: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: VerifyComplete
+// ====================================================
+
+export interface VerifyComplete_VerifyComplete {
+  __typename: "VerifyCompleteResponse";
+  ok: boolean;
+  error: string | null;
+}
+
+export interface VerifyComplete {
+  VerifyComplete: VerifyComplete_VerifyComplete;
+}
+
+export interface VerifyCompleteVariables {
+  phoneNumber: string;
+  secretKey: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================

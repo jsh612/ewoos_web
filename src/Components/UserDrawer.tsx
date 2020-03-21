@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Drawer, Modal, Button, message, Popconfirm } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 
 import { TTheme } from "../Styles/theme";
 import { IS_LOGGED_IN, LOG_USER_OUT } from "../LocalQueries";
-import routes from "../Routes/routes";
 import Login from "./Login/Login";
+import SignUp from "../Routes/SignUp/SignUp";
 
 interface ISProps {
   theme: TTheme;
@@ -34,6 +34,10 @@ const CategoryColumn = styled.div`
 const UserDrawer: React.FC = () => {
   const [drawerVisible, setDrawVisible] = useState<boolean>(false);
   const [loginModalBool, setLoginModal] = useState<boolean>(false);
+  const [signupModalBool, setSignupModal] = useState<boolean>(false);
+
+  // 위치 변경시 drawer 닫기
+  const location = useLocation();
 
   const [userLogoutMutation] = useMutation(LOG_USER_OUT);
 
@@ -55,11 +59,7 @@ const UserDrawer: React.FC = () => {
     return setLoginModal(true);
   };
 
-  const loginHandlOk = () => {
-    return setLoginModal(false);
-  };
-
-  const loginHandlCancel = () => {
+  const loginHandle = () => {
     return setLoginModal(false);
   };
 
@@ -74,6 +74,20 @@ const UserDrawer: React.FC = () => {
   const onLogoutCancel = () => {
     return;
   };
+
+  // 회원가입
+  const signupHandle = () => {
+    return setSignupModal(false);
+  };
+
+  const onSignupClick = () => {
+    return setSignupModal(true);
+  };
+
+  useEffect(() => {
+    setDrawVisible(false);
+  }, [location]);
+
   return (
     <>
       <MenuBtn
@@ -118,7 +132,9 @@ const UserDrawer: React.FC = () => {
               </Link>
             </CategoryColumn>
             <CategoryColumn>
-              <Link to={routes.SIGNUP}>회원가입</Link>
+              <Link to="" onClick={onSignupClick}>
+                회원가입
+              </Link>
             </CategoryColumn>
           </>
         )}
@@ -127,10 +143,26 @@ const UserDrawer: React.FC = () => {
         title="로그인"
         visible={loginModalBool}
         footer={null}
-        onOk={loginHandlOk}
-        onCancel={loginHandlCancel}
+        onOk={loginHandle}
+        onCancel={loginHandle}
       >
-        <Login setLoginModal={setLoginModal} setDrawVisible={setDrawVisible} />
+        <Login
+          setLoginModal={setLoginModal}
+          setDrawVisible={setDrawVisible}
+          setSignupModal={setSignupModal}
+        />
+      </Modal>
+      <Modal
+        title="회원가입"
+        visible={signupModalBool}
+        footer={null}
+        onOk={signupHandle}
+        onCancel={signupHandle}
+      >
+        <SignUp
+          setSignupModal={setSignupModal}
+          setDrawVisible={setDrawVisible}
+        />
       </Modal>
     </>
   );

@@ -1,5 +1,4 @@
 export default {
   HOME: "/",
-  SEARCH: "/search",
-  SIGNUP: "/signup"
+  SEARCH: "/search"
 } as const;

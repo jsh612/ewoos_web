@@ -8,13 +8,13 @@ export const SIGN_UP = gql`
     $info: String!
     $phoneNumber: String!
   ) {
-    SingUp(
+    SignUp(
       userId: $userId
       username: $username
       password: $password
-      info: $info!
+      info: $info
       phoneNumber: $phoneNumber
-    ){
+    ) {
       ok
       error
     }

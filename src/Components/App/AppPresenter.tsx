@@ -5,6 +5,7 @@ import {
   Route,
   Switch
 } from "react-router-dom";
+
 import routes from "../../Routes/routes";
 import Home from "../../Routes/Home";
 import Header from "../Header/Header";
@@ -12,7 +13,12 @@ import styled from "styled-components";
 import Search from "../../Routes/Search";
 
 const Main = styled.main`
+  position: relative;
   margin-top: 11vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `;
 
 const AppPresenter: React.FC = () => {
@@ -23,7 +29,6 @@ const AppPresenter: React.FC = () => {
         <Switch>
           <Route path={routes.HOME} exact={true} component={Home} />
           <Route path={routes.SEARCH} component={Search} />
-          <Route path={routes.SIGNUP} component={Search} />
           <Redirect from={"*"} to={routes.HOME} />
         </Switch>
       </Main>
