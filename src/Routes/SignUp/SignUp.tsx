@@ -18,11 +18,11 @@ import {
 
 const formItemLayout = {
   labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 }
+    xs: { span: 12 },
+    sm: { span: 4 }
   },
   wrapperCol: {
-    xs: { span: 24 },
+    xs: { span: 12 },
     sm: { span: 8 }
   }
 };
@@ -42,17 +42,19 @@ const SForm = styled(Form)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60vw;
+  width: 55vw;
   flex-direction: column;
   padding: 0px;
   flex-wrap: wrap;
 `;
 
 const SFromItem = styled(Form.Item)`
-  width: 50vw;
-  min-width: 30vw;
+  min-width: 55vw;
   height: auto;
   margin: 0.5vw 0vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Label = styled.div`
@@ -61,7 +63,6 @@ const Label = styled.div`
 
 const SInput = styled(Input)`
   min-width: 180px;
-  max-width: 35vw;
   height: auto;
   font-size: ${(props: ISProps) => props.theme.searchFontSize};
   &::placeholder {
@@ -86,14 +87,13 @@ const SInputTextArea = styled(Input.TextArea)`
 
 const BtnFormItem = styled(SFromItem)`
   width: 20vw;
+  min-width: 0px;
   height: auto;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const SButton = styled(Button)`
+  font-size: ${(props: ISProps) => props.theme.searchFontSize};
+  padding: 0px 2px;
   &:hover {
     color: ${(props: ISProps) => props.theme.pinkColor};
   }
@@ -107,7 +107,6 @@ interface IProps {
 const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
   const [form] = Form.useForm();
 
-  const phoneInput = useInput("");
   const [modifiedPhone, setModifiedPhone] = useState<string>("");
 
   // 휴대폰 비밀문자 인증 요청
@@ -115,7 +114,10 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
     VerifyStart,
     VerifyStartVariables
   >(VERIFY_START, {
-    onCompleted: () => message.success("인증번호가 전송되었습니다.")
+    onCompleted: () =>
+      message.success(
+        `${form.getFieldValue("phone")}으로 인증번호가 전송되었습니다.`
+      )
   });
 
   // 휴대폰 비밀문자 인증 확인
@@ -156,7 +158,6 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
 
   const onFinish = async values => {
     const { nickname, id, password, secretKey, info } = values;
-    console.log("phone", modifiedPhone);
     try {
       await verfiyCompleteMutation({
         variables: {
@@ -180,11 +181,13 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
 
   const onVerify = async () => {
     // 인증문자 발생
-    const modifiedPhoneNum = `+82${phoneInput.value.slice(1)}`;
+    const phoneNum: string = form.getFieldValue("phone");
+    console.log(phoneNum);
     const isValid = /^(?:(010-?\d{4})|(01[1|6|7|8|9]-?\d{3,4}))-?\d{4}$/.test(
-      phoneInput.value
+      phoneNum
     );
     if (isValid) {
+      const modifiedPhoneNum = `+82${phoneNum.slice(1)}`;
       setModifiedPhone(modifiedPhoneNum);
       console.log("realphone", modifiedPhoneNum);
       try {
@@ -208,6 +211,8 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
         onFinish={onFinish}
         form={form}
         scrollToFirstError
+        labelAlign="left"
+        colon={false}
       >
         <SFromItem
           name="nickname"
@@ -298,20 +303,15 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
           label={<Label>휴대전화</Label>}
           rules={[{ required: true, message: "휴대전화 번호를 작성해 주세요" }]}
         >
-          <SInput
-            placeholder="숫자만 입력해주세요"
-            onChange={phoneInput.onChange}
-            value={phoneInput.value}
-          />
+          <SInput />
         </SFromItem>
-        <BtnFormItem>
-          <SButton loading={verifyLoading} onClick={onVerify}>
-            인증번호 전송
-          </SButton>
-        </BtnFormItem>
         <SFromItem
           name="secretKey"
-          label={<Label>인증 번호</Label>}
+          label={
+            <SButton loading={verifyLoading} onClick={onVerify} type="dashed">
+              인증번호 전송
+            </SButton>
+          }
           rules={[
             {
               required: true,
@@ -320,7 +320,7 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
             }
           ]}
         >
-          <SInput />
+          <SInput placeholder="전송된 인증번호 입력" />
         </SFromItem>
         <BtnFormItem>
           <SButton

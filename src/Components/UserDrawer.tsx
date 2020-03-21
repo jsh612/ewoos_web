@@ -43,7 +43,7 @@ const SModal = styled(Modal)`
 const UserDrawer: React.FC = () => {
   const [drawerVisible, setDrawVisible] = useState<boolean>(false);
   const [loginModalBool, setLoginModal] = useState<boolean>(false);
-  const [signupModalBool, setSignupModal] = useState<boolean>(false);
+  const [signupModalBool, setSignupModal] = useState<boolean>(true);
 
   // 위치 변경시 drawer 닫기
   const location = useLocation();

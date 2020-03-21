@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import routes from "../../Routes/routes";
 import { TTheme } from "../../Styles/theme";
 import { LOG_USER_IN } from "../../LocalQueries";
 import { useMutation } from "@apollo/react-hooks";
@@ -117,7 +116,7 @@ const Login: React.FC<IProps> = ({
 
   useEffect(() => {
     form.resetFields();
-  }, [loginModalBool]);
+  }, [loginModalBool, form]);
 
   return (
     <Container>
