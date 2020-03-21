@@ -54,6 +54,7 @@ interface IProps {
   setLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
   setDrawVisible: React.Dispatch<React.SetStateAction<boolean>>;
   setSignupModal: React.Dispatch<React.SetStateAction<boolean>>;
+  loginModalBool: boolean;
 }
 
 interface IFormValue {
@@ -64,13 +65,10 @@ interface IFormValue {
 const Login: React.FC<IProps> = ({
   setLoginModal,
   setDrawVisible,
-  setSignupModal
+  setSignupModal,
+  loginModalBool
 }) => {
   const [form] = Form.useForm();
-
-  const history = useHistory();
-
-  const [oks, setOks] = useState<boolean>(false);
 
   const [userLogInMutation] = useMutation(LOG_USER_IN);
   const [loginMutaion, { loading }] = useMutation<login, loginVariables>(
@@ -79,7 +77,6 @@ const Login: React.FC<IProps> = ({
       onCompleted: async data => {
         const { Login } = data;
         if (Login.ok) {
-          setOks(!oks);
           if (Login.token) {
             try {
               await userLogInMutation({
@@ -88,7 +85,7 @@ const Login: React.FC<IProps> = ({
                 }
               });
             } catch (error) {
-              console.log("로그인 오류", error);
+              message.error(error);
             }
           }
           message.success(`${Login.username} 님 환영합니다.`);
@@ -110,22 +107,23 @@ const Login: React.FC<IProps> = ({
         password
       }
     });
-    form.resetFields();
-    history.push(routes.HOME);
   };
 
   const onSignup = () => {
+    form.resetFields();
     setLoginModal(false);
     setSignupModal(true);
   };
 
   useEffect(() => {
     form.resetFields();
-  });
+  }, [loginModalBool]);
+
   return (
     <Container>
       <Form
         name="normal_login"
+        form={form}
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >

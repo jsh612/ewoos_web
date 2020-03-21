@@ -159,6 +159,7 @@ const UserDrawer: React.FC = () => {
           setLoginModal={setLoginModal}
           setDrawVisible={setDrawVisible}
           setSignupModal={setSignupModal}
+          loginModalBool={loginModalBool}
         />
       </Modal>
       <SModal

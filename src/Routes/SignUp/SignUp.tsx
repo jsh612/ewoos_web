@@ -111,26 +111,46 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
   const [modifiedPhone, setModifiedPhone] = useState<string>("");
 
   // 휴대폰 비밀문자 인증 요청
-  const [verifyPhoneMutation] = useMutation<VerifyStart, VerifyStartVariables>(
-    VERIFY_START
-  );
+  const [verifyPhoneMutation, { loading: verifyLoading }] = useMutation<
+    VerifyStart,
+    VerifyStartVariables
+  >(VERIFY_START, {
+    onCompleted: () => message.success("인증번호가 전송되었습니다.")
+  });
 
   // 휴대폰 비밀문자 인증 확인
-  const [verfiyCompleteMutation] = useMutation<
+  const [verfiyCompleteMutation, { loading: completeLoading }] = useMutation<
     VerifyComplete,
     VerifyCompleteVariables
   >(VERIFY_COMPLETE);
 
   // 회원 가입
-  const [signUpMutation] = useMutation<SignUp, SignUpVariables>(SIGN_UP, {
-    onCompleted: () => {
-      notification.success({
-        message: "회원가입이 완료되었습니다",
-        description: "로그인 창으로 이동합니다."
+  const [signUpMutation, { loading: signupLoading }] = useMutation<
+    SignUp,
+    SignUpVariables
+  >(SIGN_UP, {
+    onCompleted: data => {
+      const { SignUp: { ok = false, error = null } = {} } = data;
+      if (ok) {
+        notification.success({
+          message: "회원가입이 완료되었습니다",
+          description: "로그인 창으로 이동합니다."
+        });
+        form.resetFields();
+        setSignupModal(false);
+        setLoginModal(true);
+      } else {
+        notification.error({
+          message: "회원가입이 오류",
+          description: error
+        });
+      }
+    },
+    onError: error => {
+      notification.error({
+        message: "회원가입이 오류",
+        description: error
       });
-      form.resetFields();
-      setSignupModal(false);
-      setLoginModal(true);
     }
   });
 
@@ -183,7 +203,12 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
 
   return (
     <Container>
-      <SForm {...formItemLayout} onFinish={onFinish} scrollToFirstError>
+      <SForm
+        {...formItemLayout}
+        onFinish={onFinish}
+        form={form}
+        scrollToFirstError
+      >
         <SFromItem
           name="nickname"
           label={
@@ -280,15 +305,17 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
           />
         </SFromItem>
         <BtnFormItem>
-          <SButton onClick={onVerify}>인증문자 전송</SButton>
+          <SButton loading={verifyLoading} onClick={onVerify}>
+            인증번호 전송
+          </SButton>
         </BtnFormItem>
         <SFromItem
           name="secretKey"
-          label={<Label>인증문자</Label>}
+          label={<Label>인증 번호</Label>}
           rules={[
             {
               required: true,
-              message: "해당 번호로 발송된 인증 문자열을 입력해 주세요",
+              message: "해당 번호로 발송된 인증 번호를 입력해 주세요",
               whitespace: true
             }
           ]}
@@ -296,7 +323,11 @@ const SignUpCompo: React.FC<IProps> = ({ setSignupModal, setLoginModal }) => {
           <SInput />
         </SFromItem>
         <BtnFormItem>
-          <SButton type="link" htmlType="submit">
+          <SButton
+            loading={completeLoading || signupLoading}
+            type="link"
+            htmlType="submit"
+          >
             회원가입
           </SButton>
         </BtnFormItem>
