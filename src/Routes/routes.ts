@@ -1,4 +1,5 @@
 export default {
   HOME: "/",
-  SEARCH: "/search"
+  SEARCH: "/search",
+  UPLOAD: "/upload"
 } as const;

@@ -4,7 +4,6 @@ import { Form, Input, Tooltip, Button, message, notification } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 
 import { TTheme } from "../../Styles/theme";
-import useInput from "../../Hooks/useInput";
 import { useMutation } from "@apollo/react-hooks";
 import { VERIFY_START, VERIFY_COMPLETE, SIGN_UP } from "./SignUp.queries";
 import {

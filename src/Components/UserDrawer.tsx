@@ -9,6 +9,7 @@ import { TTheme } from "../Styles/theme";
 import { IS_LOGGED_IN, LOG_USER_OUT } from "../LocalQueries";
 import Login from "./Login/Login";
 import SignUp from "../Routes/SignUp/SignUp";
+import routes from "../Routes/routes";
 
 interface ISProps {
   theme: TTheme;
@@ -43,7 +44,7 @@ const SModal = styled(Modal)`
 const UserDrawer: React.FC = () => {
   const [drawerVisible, setDrawVisible] = useState<boolean>(false);
   const [loginModalBool, setLoginModal] = useState<boolean>(false);
-  const [signupModalBool, setSignupModal] = useState<boolean>(true);
+  const [signupModalBool, setSignupModal] = useState<boolean>(false);
 
   // 위치 변경시 drawer 닫기
   const location = useLocation();
@@ -119,7 +120,7 @@ const UserDrawer: React.FC = () => {
               <Link to="">내 상점</Link>
             </CategoryColumn>
             <CategoryColumn>
-              <Link to="">상품 올리기</Link>
+              <Link to={routes.UPLOAD}>상품 올리기</Link>
             </CategoryColumn>
             <CategoryColumn>
               <Popconfirm
