@@ -104,6 +104,72 @@ export interface VerifyCompleteVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: PostDetail
+// ====================================================
+
+export interface PostDetail_PostDetail_post_user {
+  __typename: "User";
+  id: string;
+  username: string;
+}
+
+export interface PostDetail_PostDetail_post_files {
+  __typename: "File";
+  url: string;
+}
+
+export interface PostDetail_PostDetail_post_comments_user {
+  __typename: "User";
+  id: string;
+  username: string;
+}
+
+export interface PostDetail_PostDetail_post_comments {
+  __typename: "Comment";
+  text: string;
+  user: PostDetail_PostDetail_post_comments_user;
+  createdAt: string | null;
+  updatedAt: string | null;
+}
+
+export interface PostDetail_PostDetail_post {
+  __typename: "Post";
+  id: string;
+  user: PostDetail_PostDetail_post_user;
+  title: string;
+  location: string;
+  desc: string;
+  /**
+   * category: CategoryOptions!
+   */
+  category: string;
+  files: (PostDetail_PostDetail_post_files | null)[] | null;
+  comments: (PostDetail_PostDetail_post_comments | null)[] | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+}
+
+export interface PostDetail_PostDetail {
+  __typename: "PostDetailResponse";
+  ok: boolean;
+  error: string | null;
+  post: PostDetail_PostDetail_post | null;
+}
+
+export interface PostDetail {
+  PostDetail: PostDetail_PostDetail | null;
+}
+
+export interface PostDetailVariables {
+  postId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: UploadPost
 // ====================================================
 
