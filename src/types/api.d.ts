@@ -103,6 +103,39 @@ export interface VerifyCompleteVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: UploadPost
+// ====================================================
+
+export interface UploadPost_UploadPost_post {
+  __typename: "Post";
+  id: string;
+}
+
+export interface UploadPost_UploadPost {
+  __typename: "UploadPostResponse";
+  ok: boolean;
+  error: string | null;
+  post: UploadPost_UploadPost_post | null;
+}
+
+export interface UploadPost {
+  UploadPost: UploadPost_UploadPost;
+}
+
+export interface UploadPostVariables {
+  title: string;
+  location: string;
+  desc: string;
+  category: string;
+  files?: string[] | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================

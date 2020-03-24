@@ -1,5 +1,6 @@
 export default {
   HOME: "/",
   SEARCH: "/search",
-  UPLOAD: "/upload"
+  UPLOAD: "/upload",
+  POST: "/post/:postId"
 } as const;

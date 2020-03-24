@@ -6,7 +6,7 @@ export const defaults = {
   // : https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage
   auth: {
     __typename: "Auth",
-    isLoggedIn: Boolean(localStorage.getItem("jwt"))
+    isLoggedIn: Boolean(localStorage.getItem("token"))
   }
 };
 
@@ -18,7 +18,7 @@ export const resolvers = {
   //     which is the third argument passed to your resolver function.
   Mutation: {
     logUserIn: (_, { token }, { cache: appCache }) => {
-      localStorage.setItem("jwt", token);
+      localStorage.setItem("token", token);
       appCache.writeData({
         data: {
           auth: {
@@ -30,7 +30,7 @@ export const resolvers = {
       return null;
     },
     logUserOut: (_, __, { cache: appCache }) => {
-      localStorage.removeItem("jwt");
+      localStorage.removeItem("token");
       appCache.writeData({
         data: {
           auth: {
