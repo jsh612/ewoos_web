@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Drawer, Modal, Button, message, Popconfirm } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 
 import { TTheme } from "../Styles/theme";

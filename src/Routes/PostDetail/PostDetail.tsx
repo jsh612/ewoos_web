@@ -9,11 +9,18 @@ import {
   PostDetail as PostDetailData
 } from "../../types/api";
 import PostCard from "../../Components/PostCard";
+import { TTheme } from "../../Styles/theme";
+import { Spin } from "antd";
+
+interface ISProps {
+  theme: TTheme;
+}
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: ${(props: ISProps) => props.theme.basicMarginTop};
 `;
 
 const PostDetail: React.FC = () => {
@@ -25,12 +32,13 @@ const PostDetail: React.FC = () => {
     }
   );
 
-  const post = data?.PostDetail?.post;
-  console.log(post ? post : "post");
+  console.log("data", data);
   return (
     <Container>
-      {!loading && data && data.PostDetail && (
+      {!loading && data && data.PostDetail ? (
         <PostCard {...data.PostDetail.post} />
+      ) : (
+        <Spin size="large" />
       )}
     </Container>
   );

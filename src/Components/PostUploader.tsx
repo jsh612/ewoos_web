@@ -39,7 +39,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 2vw;
+  margin-top: ${(props: ISProps) => props.theme.basicMarginTop};
   box-shadow: 1px 1px 5px black;
 `;
 
