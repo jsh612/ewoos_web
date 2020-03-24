@@ -17,14 +17,16 @@ interface IState {
   previewImage: string;
   fileList: any[];
   uploadList: any[];
+  data: any[];
 }
 
-class PicturesWall extends React.Component {
+class PostUploader extends React.Component {
   state: IState = {
     previewVisible: false,
     previewImage: "",
     fileList: [],
-    uploadList: []
+    uploadList: [],
+    data: []
   };
 
   handleCancel = () => this.setState({ previewVisible: false });
@@ -41,7 +43,6 @@ class PicturesWall extends React.Component {
 
   handleChange = ({ fileList }) => {
     this.setState({ fileList });
-    console.log("변화 파일", this.state.fileList);
   };
 
   beforeUpload = file => {
@@ -70,9 +71,9 @@ class PicturesWall extends React.Component {
 
   handleUpload = async () => {
     const { uploadList } = this.state;
+
     const formData = new FormData();
     uploadList.forEach(file => {
-      console.log("file", file);
       formData.append("files", file);
     });
 
@@ -87,7 +88,7 @@ class PicturesWall extends React.Component {
     //   method: "post",
     //   data: formData
     // });
-    await reqwest({
+    const data = await reqwest({
       url: "http://localhost:4000/api/upload",
       method: "post",
       processData: false,
@@ -108,10 +109,12 @@ class PicturesWall extends React.Component {
       },
       contentType: "multipart/form-data"
     });
+    this.setState({ data });
   };
 
   render() {
-    const { previewVisible, previewImage, fileList } = this.state;
+    const { previewVisible, previewImage, fileList, data } = this.state;
+    console.log("state 받은값", data);
     const uploadButton = (
       <div>
         <PlusOutlined />
@@ -147,14 +150,14 @@ class PicturesWall extends React.Component {
           disabled={fileList.length === 0}
           style={{ marginTop: 16 }}
         >
-          "업로드"
+          업로드
         </Button>
       </div>
     );
   }
 }
 
-export default PicturesWall;
+export default PostUploader;
 
 // import React, { useState } from "react";
 // import styled from "styled-components";

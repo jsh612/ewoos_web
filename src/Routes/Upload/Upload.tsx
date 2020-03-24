@@ -1,8 +1,8 @@
 import React from "react";
-import ImageUploader from "../../Components/ImageUploader";
+import PostUploader from "../../Components/PostUploader";
 
 const UploadPost: React.FC = () => {
-  return <ImageUploader />;
+  return <PostUploader />;
 };
 
 export default UploadPost;
