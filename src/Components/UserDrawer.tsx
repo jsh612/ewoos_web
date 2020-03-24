@@ -8,7 +8,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { TTheme } from "../Styles/theme";
 import { IS_LOGGED_IN, LOG_USER_OUT } from "../LocalQueries";
 import Login from "./Login/Login";
-import SignUp from "../Routes/SignUp/SignUp";
+import SignUp from "./SignUp/SignUp";
 import routes from "../Routes/routes";
 
 interface ISProps {

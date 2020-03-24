@@ -66,8 +66,6 @@ const PostUploader: React.FC = () => {
     });
     setUploading(true);
 
-    console.log("보이기 list", fileList);
-    console.log("업로드 리스트", uploadList);
     // You can use any AJAX library you like
     // console.log("form 데이터", formData.getAll("file"));
     // await axios({
