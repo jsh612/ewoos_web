@@ -4,6 +4,30 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: CreateComment
+// ====================================================
+
+export interface CreateComment_CreateComment {
+  __typename: "CreateCommentResponse";
+  ok: boolean;
+  error: string | null;
+}
+
+export interface CreateComment {
+  CreateComment: CreateComment_CreateComment;
+}
+
+export interface CreateCommentVariables {
+  text: string;
+  postId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: login
 // ====================================================
 
@@ -195,6 +219,29 @@ export interface UploadPostVariables {
   desc: string;
   category: string;
   files?: string[] | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetMe
+// ====================================================
+
+export interface GetMe_GetMe_user {
+  __typename: "User";
+  username: string;
+}
+
+export interface GetMe_GetMe {
+  __typename: "GetMeResponse";
+  user: GetMe_GetMe_user | null;
+}
+
+export interface GetMe {
+  GetMe: GetMe_GetMe | null;
 }
 
 /* tslint:disable */

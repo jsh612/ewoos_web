@@ -2,26 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Descriptions, Carousel, Button } from "antd";
 import { ISProps } from "../types/custom";
-
-interface IUser {
-  id: string;
-  username: string;
-}
-
-interface IFiles {
-  url: string;
-}
-
-interface IProps {
-  title?: string;
-  location?: string;
-  desc?: string;
-  category?: string;
-  createdAt?: string | null;
-  updatadAt?: string | null;
-  user?: IUser;
-  files?: (IFiles | null)[] | null;
-}
+import Comments from "./Comments/Comments";
 
 const Container = styled.div`
   min-width: 300px;
@@ -32,19 +13,29 @@ const Container = styled.div`
 
 const Header = styled.header`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 10px;
+  margin: 15px 0px;
+  border-bottom: 2px solid black;
 `;
 
 const Title = styled.div`
-  font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 2);
+  font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 3);
   font-weight: 900;
-  margin: 15px 0px;
   padding-left: 10px;
 `;
 
 const RentBtn = styled(Button)`
   background-color: ${(props: ISProps) => props.theme.pinkColor};
+  font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 2);
+  min-width: calc(${(props: ISProps) => props.theme.searchFontSize} * 4);
+  padding: 2px 5px;
+  height: auto;
+  text-align: center;
+  align-self: flex-end;
+  margin-bottom: 2px;
 `;
 
 const SDescriptions = styled(Descriptions)`
@@ -96,6 +87,36 @@ const Img = styled.img`
   margin: 0px auto;
 `;
 
+const CommentLabel = styled(Label)`
+  margin-top: 15px;
+  font-weight: 700;
+`;
+
+interface IFiles {
+  url: string;
+}
+
+interface IUser {
+  username: string;
+}
+
+export interface IComment {
+  text: string;
+  user: IUser;
+}
+
+interface IProps {
+  title?: string;
+  location?: string;
+  desc?: string;
+  category?: string;
+  createdAt?: string | null;
+  updatadAt?: string | null;
+  user?: IUser;
+  files?: (IFiles | null)[] | null;
+  comments?: (IComment | null)[] | null;
+}
+
 const PostCard: React.FC<IProps> = ({
   title,
   user,
@@ -104,7 +125,8 @@ const PostCard: React.FC<IProps> = ({
   category,
   createdAt,
   updatadAt,
-  files
+  files,
+  comments
 }) => {
   const timestamp = new Date(
     Date.parse(updatadAt ? updatadAt : createdAt!)
@@ -176,6 +198,8 @@ const PostCard: React.FC<IProps> = ({
           <Text>{timestamp}</Text>
         </Descriptions.Item>
       </SDescriptions>
+      <CommentLabel>댓글</CommentLabel>
+      <Comments comments={comments} />
     </Container>
   );
 };

@@ -31,8 +31,6 @@ const PostDetail: React.FC = () => {
       variables: { postId: postId! }
     }
   );
-
-  console.log("data", data);
   return (
     <Container>
       {!loading && data && data.PostDetail ? (
