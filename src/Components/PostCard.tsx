@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Descriptions, Carousel } from "antd";
-import { TTheme } from "../Styles/theme";
+import { Descriptions, Carousel, Button } from "antd";
+import { ISProps } from "../types/custom";
 
 interface IUser {
   id: string;
@@ -23,15 +23,28 @@ interface IProps {
   files?: (IFiles | null)[] | null;
 }
 
-interface ISProps {
-  theme: TTheme;
-}
-
 const Container = styled.div`
   min-width: 300px;
   width: 50vw;
   box-shadow: 1px 1px 5px black;
   padding: 10px;
+`;
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.div`
+  font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 2);
+  font-weight: 900;
+  margin: 15px 0px;
+  padding-left: 10px;
+`;
+
+const RentBtn = styled(Button)`
+  background-color: ${(props: ISProps) => props.theme.pinkColor};
 `;
 
 const SDescriptions = styled(Descriptions)`
@@ -40,10 +53,6 @@ const SDescriptions = styled(Descriptions)`
 
 const SDescriptionsItem = styled(Descriptions.Item)`
   width: 30vw;
-`;
-
-const Title = styled.div`
-  font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 1.3);
 `;
 
 const Label = styled.div`
@@ -59,12 +68,32 @@ const Desc = styled.p`
 `;
 
 const SCarousel = styled(Carousel)`
-  background-color: red;
+  min-width: 300px;
+  width: 50vw;
+  height: 300px;
+  > .slick-dots li.slick-active button {
+    background-color: red;
+    cursor: default;
+  }
+  > .slick-dots li button {
+    background-color: green;
+  }
+`;
+
+const ImgWrapper = styled.div`
+  height: 250px;
+  width: auto;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Img = styled.img`
-  max-width: 150px;
-  height: auto;
+  height: 250px;
+  width: auto;
+  max-width: 100%;
+  margin: 0px auto;
 `;
 
 const PostCard: React.FC<IProps> = ({
@@ -98,18 +127,27 @@ const PostCard: React.FC<IProps> = ({
     }
   };
 
+  const onRent = () => {
+    console.log("렌트 신청");
+  };
+
   return (
     <Container>
-      <SDescriptions title={<Title>{title}</Title>} bordered column={1}>
-        <SCarousel autoplay>
-          {/* {files && files.map(file => <Img src={file?.url} alt="상품 사진" />)} */}
-          <div>
-            <Img src={files![0]!.url} alt="상품 사진" />
-          </div>
-          <div>
-            <Img src={files![0]!.url} alt="상품 사진" />
-          </div>
-        </SCarousel>
+      <Header>
+        <Title>{title}</Title>
+        <RentBtn type="primary" onClick={onRent}>
+          대여 신청
+        </RentBtn>
+      </Header>
+      <SCarousel>
+        {files &&
+          files.map((file, idx) => (
+            <ImgWrapper key={idx}>
+              <Img src={file?.url} alt="상품 사진" />
+            </ImgWrapper>
+          ))}
+      </SCarousel>
+      <SDescriptions bordered column={1}>
         <Descriptions.Item label={<Label>{"지역"}</Label>}>
           <Text>{location}</Text>
         </Descriptions.Item>
@@ -134,6 +172,9 @@ const PostCard: React.FC<IProps> = ({
             {desc}
           </Desc>
         </SDescriptionsItem>
+        <Descriptions.Item label={<Label>{"작성일"}</Label>}>
+          <Text>{timestamp}</Text>
+        </Descriptions.Item>
       </SDescriptions>
     </Container>
   );
