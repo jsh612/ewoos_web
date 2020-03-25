@@ -194,6 +194,30 @@ export interface PostDetailVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: ReqRent
+// ====================================================
+
+export interface ReqRent_ReqRent {
+  __typename: "ReqRentResponse";
+  ok: boolean;
+  error: string | null;
+}
+
+export interface ReqRent {
+  ReqRent: ReqRent_ReqRent;
+}
+
+export interface ReqRentVariables {
+  postId: string;
+  message: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: UploadPost
 // ====================================================
 

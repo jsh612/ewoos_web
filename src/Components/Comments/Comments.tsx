@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Comment, Form, Button, List, Input } from "antd";
+import { Comment, Form, Button, List, Input, notification } from "antd";
 import styled from "styled-components";
 
 import { IComment } from "../PostCard";
@@ -83,7 +83,6 @@ const Comments: React.FC<IDBComments> = ({ comments }) => {
   const [commentsArr, setCommentsArr] = useState<IComment[]>(
     comments ? comments : []
   );
-  console.log("commentsArr", commentsArr);
   const [value, setValue] = useState<string>("");
 
   const { data: getMeData, loading: meLoading } = useQuery<GetMe>(GET_ME);
@@ -92,8 +91,7 @@ const Comments: React.FC<IDBComments> = ({ comments }) => {
     CreateComment,
     CreateCommentVariables
   >(CREATE_COMMENT, {
-    onCompleted: data => {
-      console.log("올린값", data);
+    onCompleted: () => {
       setCommentsArr([
         ...commentsArr,
         {
@@ -101,6 +99,12 @@ const Comments: React.FC<IDBComments> = ({ comments }) => {
           text: value
         }
       ]);
+    },
+    onError: () => {
+      notification.error({
+        message: "로그인 해주세요",
+        description: "댓글 작성을 위해서 로그인이 필요합니다."
+      });
     }
   });
 

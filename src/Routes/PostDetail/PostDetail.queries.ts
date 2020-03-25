@@ -33,3 +33,12 @@ export const POST_DETAIL = gql`
     }
   }
 `;
+
+export const RENT = gql`
+  mutation ReqRent($postId: String!, $message: String!) {
+    ReqRent(postId: $postId, message: $message) {
+      ok
+      error
+    }
+  }
+`;

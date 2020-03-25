@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Descriptions, Carousel, Button } from "antd";
+import {
+  Descriptions,
+  Carousel,
+  Button,
+  Modal,
+  notification,
+  Input,
+  Form,
+  message,
+  Spin
+} from "antd";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useParams, useHistory } from "react-router-dom";
+
 import { ISProps } from "../types/custom";
 import Comments from "./Comments/Comments";
+import { ReqRent, ReqRentVariables } from "../types/api";
+import { RENT } from "../Routes/PostDetail/PostDetail.queries";
+import { IS_LOGGED_IN } from "../LocalQueries";
 
 const Container = styled.div`
   min-width: 300px;
@@ -35,7 +51,7 @@ const RentBtn = styled(Button)`
   height: auto;
   text-align: center;
   align-self: flex-end;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 `;
 
 const SDescriptions = styled(Descriptions)`
@@ -88,8 +104,15 @@ const Img = styled.img`
 `;
 
 const CommentLabel = styled(Label)`
+  border-top: 2px solid black;
+  padding-top: 5px;
   margin-top: 15px;
   font-weight: 700;
+`;
+
+const SInputTextArea = styled(Input.TextArea)`
+  font-size: ${(props: ISProps) => props.theme.searchFontSize};
+  resize: none;
 `;
 
 interface IFiles {
@@ -128,9 +151,15 @@ const PostCard: React.FC<IProps> = ({
   files,
   comments
 }) => {
+  const [rentModalBool, setRentModalBool] = useState<boolean>(false);
+
   const timestamp = new Date(
     Date.parse(updatadAt ? updatadAt : createdAt!)
   ).toString();
+
+  const { postId } = useParams();
+
+  const [form] = Form.useForm();
 
   const categoryChanger = (cate: string) => {
     switch (cate) {
@@ -149,8 +178,52 @@ const PostCard: React.FC<IProps> = ({
     }
   };
 
+  const [rentMutation, { loading }] = useMutation<ReqRent, ReqRentVariables>(
+    RENT,
+    {
+      onCompleted: data => {
+        const {
+          ReqRent: { ok, error }
+        } = data;
+        if (ok) {
+          form.resetFields();
+          message.success("대여 신청이 완료되었습니다.");
+          setRentModalBool(false);
+        } else {
+          message.error(error);
+        }
+      }
+    }
+  );
+
+  const { data: { auth: { isLoggedIn = false } = {} } = {} } = useQuery(
+    IS_LOGGED_IN
+  );
+
   const onRent = () => {
-    console.log("렌트 신청");
+    if (!isLoggedIn) {
+      notification.error({
+        message: "로그인 해주세요",
+        description: "대여 신청을 위해선는 로그인이 필요합니다."
+      });
+      return;
+    }
+    return setRentModalBool(true);
+  };
+
+  const modalHandleOk = async () => {
+    const message = form.getFieldValue("message");
+    await rentMutation({
+      variables: {
+        postId: postId!,
+        message
+      }
+    });
+  };
+
+  const modalHandleCancel = () => {
+    form.resetFields();
+    setRentModalBool(false);
   };
 
   return (
@@ -170,6 +243,9 @@ const PostCard: React.FC<IProps> = ({
           ))}
       </SCarousel>
       <SDescriptions bordered column={1}>
+        <Descriptions.Item label={<Label>{"작성자"}</Label>}>
+          <Text>{user!.username}</Text>
+        </Descriptions.Item>
         <Descriptions.Item label={<Label>{"지역"}</Label>}>
           <Text>{location}</Text>
         </Descriptions.Item>
@@ -177,22 +253,7 @@ const PostCard: React.FC<IProps> = ({
           <Text>{categoryChanger(category!)}</Text>
         </Descriptions.Item>
         <SDescriptionsItem label={<Label>{"설명"}</Label>}>
-          <Desc>
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-            {desc}
-          </Desc>
+          <Desc>{desc}</Desc>
         </SDescriptionsItem>
         <Descriptions.Item label={<Label>{"작성일"}</Label>}>
           <Text>{timestamp}</Text>
@@ -200,6 +261,24 @@ const PostCard: React.FC<IProps> = ({
       </SDescriptions>
       <CommentLabel>댓글</CommentLabel>
       <Comments comments={comments} />
+      <Modal
+        title="대여 신청"
+        visible={rentModalBool}
+        onOk={modalHandleOk}
+        onCancel={modalHandleCancel}
+        okType="default"
+        okText={loading ? <Spin /> : "신청"}
+        cancelText="취소"
+      >
+        <Form name="messageForm" form={form}>
+          <Form.Item
+            name="message"
+            rules={[{ required: true, message: "메시지를 작성해 주세요" }]}
+          >
+            <SInputTextArea placeholder="1월 1일부터 2일간 대여 , 연락처 : XXX-XXXX-XXXX " />
+          </Form.Item>
+        </Form>
+      </Modal>
     </Container>
   );
 };
