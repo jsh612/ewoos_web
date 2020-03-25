@@ -11,6 +11,7 @@ import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import routes from "../Routes/routes";
 
+// theme types
 interface ISProps {
   theme: TTheme;
 }
