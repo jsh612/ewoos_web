@@ -38,7 +38,7 @@ const Header = styled.header`
 `;
 
 const Title = styled.div`
-  font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 3);
+  font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 2.5);
   font-weight: 900;
   padding-left: 10px;
 `;
@@ -46,12 +46,12 @@ const Title = styled.div`
 const RentBtn = styled(Button)`
   background-color: ${(props: ISProps) => props.theme.pinkColor};
   font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 2);
-  min-width: calc(${(props: ISProps) => props.theme.searchFontSize} * 4);
+  min-width: calc(${(props: ISProps) => props.theme.searchFontSize} * 3);
   padding: 2px 5px;
   height: auto;
   text-align: center;
   align-self: flex-end;
-  margin-bottom: 4px;
+  margin: 7px 0px;
 `;
 
 const SDescriptions = styled(Descriptions)`

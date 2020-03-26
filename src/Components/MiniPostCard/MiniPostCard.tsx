@@ -37,6 +37,7 @@ const CardImg = styled.img`
 
 const CardTittl = styled.p`
   font-weight: 800;
+  padding: 0px 3px;
 `;
 
 interface IProps {
