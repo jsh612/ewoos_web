@@ -26,6 +26,29 @@
             "deprecationReason": null
           },
           {
+            "name": "CategoryPost",
+            "description": null,
+            "args": [
+              {
+                "name": "category",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "CategoryPostResponse",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "PostDetail",
             "description": null,
             "args": [
@@ -113,7 +136,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "PostDetailResponse",
+        "name": "CategoryPostResponse",
         "description": null,
         "fields": [
           {
@@ -145,13 +168,17 @@
             "deprecationReason": null
           },
           {
-            "name": "post",
+            "name": "posts",
             "description": null,
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "Post",
-              "ofType": null
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Post",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -879,6 +906,57 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PostDetailResponse",
+        "description": null,
+        "fields": [
+          {
+            "name": "ok",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "error",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "post",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Post",
               "ofType": null
             },
             "isDeprecated": false,

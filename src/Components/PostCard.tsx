@@ -12,7 +12,7 @@ import {
   Spin
 } from "antd";
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { ISProps } from "../types/custom";
 import Comments from "./Comments/Comments";

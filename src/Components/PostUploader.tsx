@@ -185,7 +185,6 @@ const PostUploader: React.FC = () => {
           setFileList([]);
           setUploadList([]);
           setUploading(false);
-          message.success("upload successfully.");
         },
         error: () => {
           setUploading(false);

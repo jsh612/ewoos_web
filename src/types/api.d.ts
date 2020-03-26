@@ -128,6 +128,36 @@ export interface VerifyCompleteVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: CategoryPost
+// ====================================================
+
+export interface CategoryPost_CategoryPost_posts {
+  __typename: "Post";
+  id: string;
+  title: string;
+}
+
+export interface CategoryPost_CategoryPost {
+  __typename: "CategoryPostResponse";
+  ok: boolean;
+  error: string | null;
+  posts: (CategoryPost_CategoryPost_posts | null)[] | null;
+}
+
+export interface CategoryPost {
+  CategoryPost: CategoryPost_CategoryPost | null;
+}
+
+export interface CategoryPostVariables {
+  category?: string | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: PostDetail
 // ====================================================
 
