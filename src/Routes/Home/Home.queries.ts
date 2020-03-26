@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
 const GET_CATEGORY = gql`
-  query CategoryPost($category: String) {
-    CategoryPost(category: $category) {
+  query CategoryPost($category: String, $pageNumber: Int!, $items: Int!) {
+    CategoryPost(category: $category, pageNumber: $pageNumber, items: $items) {
       ok
       error
       posts {

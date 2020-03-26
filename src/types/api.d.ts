@@ -135,6 +135,10 @@ export interface CategoryPost_CategoryPost_posts {
   __typename: "Post";
   id: string;
   title: string;
+  /**
+   * category: CategoryOptions!
+   */
+  category: string;
 }
 
 export interface CategoryPost_CategoryPost {
@@ -150,6 +154,8 @@ export interface CategoryPost {
 
 export interface CategoryPostVariables {
   category?: string | null;
+  pageNumber: number;
+  items: number;
 }
 
 /* tslint:disable */
