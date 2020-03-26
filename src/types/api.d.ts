@@ -54,6 +54,48 @@ export interface loginVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: CategoryPost
+// ====================================================
+
+export interface CategoryPost_CategoryPost_posts_files {
+  __typename: "File";
+  url: string;
+}
+
+export interface CategoryPost_CategoryPost_posts {
+  __typename: "Post";
+  id: string;
+  title: string;
+  /**
+   * category: CategoryOptions!
+   */
+  category: string;
+  files: (CategoryPost_CategoryPost_posts_files | null)[] | null;
+}
+
+export interface CategoryPost_CategoryPost {
+  __typename: "CategoryPostResponse";
+  ok: boolean;
+  error: string | null;
+  posts: (CategoryPost_CategoryPost_posts | null)[] | null;
+}
+
+export interface CategoryPost {
+  CategoryPost: CategoryPost_CategoryPost | null;
+}
+
+export interface CategoryPostVariables {
+  category?: string | null;
+  pageNumber: number;
+  items: number;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: SignUp
 // ====================================================
 
@@ -120,42 +162,6 @@ export interface VerifyComplete {
 export interface VerifyCompleteVariables {
   phoneNumber: string;
   secretKey: string;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: CategoryPost
-// ====================================================
-
-export interface CategoryPost_CategoryPost_posts {
-  __typename: "Post";
-  id: string;
-  title: string;
-  /**
-   * category: CategoryOptions!
-   */
-  category: string;
-}
-
-export interface CategoryPost_CategoryPost {
-  __typename: "CategoryPostResponse";
-  ok: boolean;
-  error: string | null;
-  posts: (CategoryPost_CategoryPost_posts | null)[] | null;
-}
-
-export interface CategoryPost {
-  CategoryPost: CategoryPost_CategoryPost | null;
-}
-
-export interface CategoryPostVariables {
-  category?: string | null;
-  pageNumber: number;
-  items: number;
 }
 
 /* tslint:disable */

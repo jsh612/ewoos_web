@@ -9,6 +9,9 @@ const GET_CATEGORY = gql`
         id
         title
         category
+        files {
+          url
+        }
       }
     }
   }
