@@ -8,7 +8,7 @@ import { ISProps } from "../types/custom";
 import { useReducerState } from "./MainContext";
 
 interface ISPropsE extends ISProps {
-  pinkBool?: boolean;
+  status?: string;
 }
 
 const Item = styled(List.Item)`
@@ -29,8 +29,11 @@ const ItemMain = styled.div`
   align-items: flex-end;
 `;
 const Rent = styled.div`
-  color: ${(props: ISPropsE) =>
-    props.pinkBool ? props.theme.pinkColor : props.theme.blueColor};
+  color: ${(props: ISPropsE) => {
+    return props.status && props.status !== "대여 가능"
+      ? props.theme.pinkColor
+      : props.theme.blueColor;
+  }};
 `;
 
 const StatusBtn = styled(Button)`
@@ -69,9 +72,9 @@ interface IListItem {
 const ListViewItem: React.FC<IListItem> = ({ post, mutationFunc, loading }) => {
   const [modalBool, setModalBool] = useState<boolean>(false);
   const { getMeRefetch } = useReducerState();
-  const [test, setTest] = useState<boolean>(false);
 
   const statusTransformer = (status: string) => {
+    // 상품 상태값을 한글로 변경
     switch (status) {
       case "REQUEST":
         return "대여 요청";
@@ -82,15 +85,26 @@ const ListViewItem: React.FC<IListItem> = ({ post, mutationFunc, loading }) => {
     }
   };
 
+  const [status, setStatus] = useState<string>(
+    statusTransformer(
+      post.rents && post.rents.length !== 0 ? post!.rents![0]!.status : ""
+    )
+  );
+  console.log("status", status);
+
   const showModal = () => {
     setModalBool(true);
   };
 
   const handleOk = (rentId: string, status: string) => async () => {
-    console.log("status", status);
     try {
       await mutationFunc(rentId, status);
       notification.success({ message: "대여 상품의 상태가 변경 되었습니다." });
+      if (status === "RENT") {
+        setStatus("대여중");
+      } else {
+        setStatus("대여 가능");
+      }
     } catch (error) {
       notification.error({ message: error });
     }
@@ -104,21 +118,16 @@ const ListViewItem: React.FC<IListItem> = ({ post, mutationFunc, loading }) => {
   useEffect(() => {
     if (getMeRefetch) {
       getMeRefetch();
-      setTest(!test);
     }
-  }, [loading, getMeRefetch]);
-
-  useEffect(() => {
-    setTest(!test);
-  }, [test]);
+  }, [loading]);
 
   return (
     <Item>
       <ItemMain>
         {post.rents && post.rents.length !== 0 ? (
           post.rents.map(rent => (
-            <Rent key={rent?.id} pinkBool>
-              {statusTransformer(rent?.status!)}
+            <Rent status={status} key={rent?.id}>
+              {status}
             </Rent>
           ))
         ) : (
@@ -126,7 +135,7 @@ const ListViewItem: React.FC<IListItem> = ({ post, mutationFunc, loading }) => {
         )}
       </ItemMain>
       <Header to={`/post/${post.id}`}>{post.title}</Header>
-      {post.rents && post.rents.length !== 0 && (
+      {post.rents && post.rents.length !== 0 && status !== "대여 가능" && (
         <StatusBtn type="ghost" onClick={showModal}>
           대여 정보 보기
         </StatusBtn>

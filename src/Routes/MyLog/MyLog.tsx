@@ -15,7 +15,9 @@ const Container = styled.div`
 
 const MyLog: React.FC = () => {
   const dispatch = useDispatch();
-  const { data, loading, refetch } = useQuery<GetMe>(GET_ME);
+  const { data, loading, refetch } = useQuery<GetMe>(GET_ME, {
+    fetchPolicy: "network-only"
+  });
 
   useEffect(() => {
     dispatch({ type: "GET_ME_REFETCH", payload: refetch });
