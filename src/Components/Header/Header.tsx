@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 
@@ -9,6 +9,7 @@ import Input from "../Input";
 import useInput from "../../Hooks/useInput";
 import LeftDrawer from "../CateDrawer";
 import UserDrawer from "../UserDrawer";
+import { headerTrigger } from "../../utils/utils";
 
 interface ISprops {
   theme: TTheme;
@@ -71,27 +72,42 @@ const SearchInput = styled(Input)`
 const Header: React.FC = () => {
   const search = useInput("");
   const history = useHistory();
+  const path = history.location.pathname!;
+
+  // header를 보일지 말지 결정
+  const [headerVisible, setHeaderVisible] = useState<boolean>(
+    headerTrigger(path)
+  );
+
   const onSearchSubmit: React.FormEventHandler = event => {
     event.preventDefault();
     history.push(`/search?term=${search.value}`);
     search.setValue("");
   };
+
+  useEffect(() => {
+    setHeaderVisible(headerTrigger(path));
+  }, [path]);
   return (
     <Container>
-      <LeftDrawer />
-      <Wrapper>
-        <SLink to={routes.HOME}>
-          <Logo />
-        </SLink>
-        <Form onSubmit={onSearchSubmit}>
-          <SearchInput
-            value={search.value}
-            onChange={search.onChange}
-            placeholder="상품명"
-          />
-        </Form>
-      </Wrapper>
-      <UserDrawer />
+      {headerVisible ? (
+        <>
+          <LeftDrawer />
+          <Wrapper>
+            <SLink to={routes.HOME}>
+              <Logo />
+            </SLink>
+            <Form onSubmit={onSearchSubmit}>
+              <SearchInput
+                value={search.value}
+                onChange={search.onChange}
+                placeholder="상품명"
+              />
+            </Form>
+          </Wrapper>
+          <UserDrawer />
+        </>
+      ) : null}
     </Container>
   );
 };

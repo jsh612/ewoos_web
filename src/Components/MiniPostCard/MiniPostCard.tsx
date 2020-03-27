@@ -50,7 +50,7 @@ interface IProps {
 
 const MiniPostCard: React.FC<IProps> = ({ category }) => {
   const history = useHistory();
-  const items = 1; // 쿼리 당 가져올 post 갯수
+  const items = 10; // 쿼리 당 가져올 post 갯수
 
   const { data, loading, fetchMore } = useQuery<
     CategoryPost,

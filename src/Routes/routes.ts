@@ -3,5 +3,6 @@ export default {
   SEARCH: "/search",
   UPLOAD: "/upload",
   POST: "/post/:postId",
-  CATEGORY: "/category/:categoryName"
+  CATEGORY: "/category/:categoryName",
+  MYLOG: "/mylog"
 } as const;
