@@ -46,17 +46,14 @@ interface IProps {
 
 const MiniPostCard: React.FC<IProps> = ({ category }) => {
   const history = useHistory();
-  const items = 10; // 쿼리 당 가져올 post 갯수
+  const items = 5; // 쿼리 당 가져올 post 갯수
 
   const { data, loading, fetchMore } = useQuery<
     CategoryPost,
     CategoryPostVariables
   >(GET_CATEGORY, {
     variables: { items, pageNumber: 0, category },
-    fetchPolicy: "cache-and-network",
-    onCompleted: data => {
-      console.log("내부 데이터", data);
-    }
+    fetchPolicy: "cache-and-network"
   });
 
   const onLoadMore = () => {
@@ -99,7 +96,7 @@ const MiniPostCard: React.FC<IProps> = ({ category }) => {
             dataLength={data.CategoryPost.posts.length}
             next={onLoadMore}
             hasMore={true}
-            loader={<Spin />}
+            loader={null}
           >
             {data.CategoryPost.posts.map(post => {
               if (post) {
@@ -116,11 +113,12 @@ const MiniPostCard: React.FC<IProps> = ({ category }) => {
                   </SCard>
                 );
               }
+              return null;
             })}
           </SInfiniteScroll>
         )
       ) : (
-        <Spin />
+        <Spin size="large" />
       )}
     </>
   );
