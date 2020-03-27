@@ -13,6 +13,7 @@ import styled from "styled-components";
 import Search from "../../Routes/Search";
 import UploadPost from "../../Routes/Upload/Upload";
 import PostDetail from "../../Routes/PostDetail/PostDetail";
+import Category from "../../Routes/Category/Category";
 
 const Main = styled.main`
   position: relative;
@@ -30,9 +31,10 @@ const AppPresenter: React.FC = () => {
       <Main>
         <Switch>
           <Route path={routes.HOME} exact={true} component={Home} />
-          <Route path={routes.SEARCH} component={Search} />
-          <Route path={routes.UPLOAD} component={UploadPost} />
+          <Route path={routes.SEARCH} exact={true} component={Search} />
+          <Route path={routes.UPLOAD} exact={true} component={UploadPost} />
           <Route path={routes.POST} component={PostDetail} />
+          <Route path={routes.CATEGORY} component={Category} />
           <Redirect from={"*"} to={routes.HOME} />
         </Switch>
       </Main>

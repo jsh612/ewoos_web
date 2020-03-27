@@ -40,13 +40,17 @@ const CardTittl = styled.p`
   padding: 0px 3px;
 `;
 
+const Message = styled.div`
+  font-weight: 900;
+`;
+
 interface IProps {
   category?: string;
 }
 
 const MiniPostCard: React.FC<IProps> = ({ category }) => {
   const history = useHistory();
-  const items = 5; // 쿼리 당 가져올 post 갯수
+  const items = 1; // 쿼리 당 가져올 post 갯수
 
   const { data, loading, fetchMore } = useQuery<
     CategoryPost,
@@ -61,11 +65,13 @@ const MiniPostCard: React.FC<IProps> = ({ category }) => {
       fetchMore({
         variables: {
           pageNumber: data?.CategoryPost?.posts!.length,
-          items
+          items,
+          category
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           // updateQuery를 통해 기존 data에 새로운 data 추가
-          if (!fetchMoreResult) return prev;
+          console.log("fetchMoreResult", fetchMoreResult);
+          if (fetchMoreResult?.CategoryPost?.error) return prev;
           return Object.assign({}, prev, {
             CategoryPost: {
               ...prev!.CategoryPost!,
@@ -91,14 +97,15 @@ const MiniPostCard: React.FC<IProps> = ({ category }) => {
       {!loading ? (
         data &&
         data.CategoryPost &&
-        data.CategoryPost.posts && (
+        data.CategoryPost.posts &&
+        data.CategoryPost.posts!.length !== 0 ? (
           <SInfiniteScroll
-            dataLength={data.CategoryPost.posts.length}
+            dataLength={data.CategoryPost!.posts!.length}
             next={onLoadMore}
             hasMore={true}
             loader={null}
           >
-            {data.CategoryPost.posts.map(post => {
+            {data.CategoryPost!.posts!.map(post => {
               if (post) {
                 return (
                   <SCard
@@ -116,6 +123,8 @@ const MiniPostCard: React.FC<IProps> = ({ category }) => {
               return null;
             })}
           </SInfiniteScroll>
+        ) : (
+          <Message>등록된 대여 상품이 없습니다.</Message>
         )
       ) : (
         <Spin size="large" />

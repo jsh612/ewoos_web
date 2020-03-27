@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Drawer, Button } from "antd";
 import { MenuUnfoldOutlined } from "@ant-design/icons";
-import { TTheme } from "../Styles/theme";
 import { Link } from "react-router-dom";
-
-interface ISProps {
-  theme: TTheme;
-}
+import { ISProps } from "../types/custom";
 
 const MenuBtn = styled(Button)`
   width: ${(props: ISProps) => props.theme.iconSize};
@@ -27,16 +23,22 @@ const CategoryColumn = styled.div`
 `;
 
 const CateDrawer: React.FC = () => {
-  const [visible, setVisible] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false); // drawer 보일지 말지
 
   const onClose = () => {
     setVisible(false);
   };
+
   const drawerToggle = () => {
     if (visible) {
       return setVisible(false);
     }
     return setVisible(true);
+  };
+
+  const onClick = () => {
+    // 개별 카테고리 링크 클릭시 drawer 닫기
+    setVisible(false);
   };
 
   return (
@@ -55,23 +57,23 @@ const CateDrawer: React.FC = () => {
         visible={visible}
         width={"200px"}
       >
-        <CategoryColumn>
-          <Link to="">디지털/가전</Link>
+        <CategoryColumn onClick={onClick}>
+          <Link to="/category/digital">디지털/가전</Link>
         </CategoryColumn>
-        <CategoryColumn>
-          <Link to="">패션</Link>
+        <CategoryColumn onClick={onClick}>
+          <Link to="/category/fashion">패션</Link>
         </CategoryColumn>
-        <CategoryColumn>
-          <Link to="">스포츠/레저</Link>
+        <CategoryColumn onClick={onClick}>
+          <Link to="/category/sports">스포츠/레저</Link>
         </CategoryColumn>
-        <CategoryColumn>
-          <Link to="">유아동</Link>
+        <CategoryColumn onClick={onClick}>
+          <Link to="/category/child">유아동</Link>
         </CategoryColumn>
-        <CategoryColumn>
-          <Link to="">생활용품</Link>
+        <CategoryColumn onClick={onClick}>
+          <Link to="/category/household">생활용품</Link>
         </CategoryColumn>
-        <CategoryColumn>
-          <Link to="">기타</Link>
+        <CategoryColumn onClick={onClick}>
+          <Link to="/category/etc">기타</Link>
         </CategoryColumn>
       </Drawer>
     </>
