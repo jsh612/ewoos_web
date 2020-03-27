@@ -8,7 +8,6 @@ import {
   notification,
   Input,
   Form,
-  message,
   Spin
 } from "antd";
 import { useMutation, useQuery } from "@apollo/react-hooks";
@@ -187,10 +186,11 @@ const PostCard: React.FC<IProps> = ({
         } = data;
         if (ok) {
           form.resetFields();
-          message.success("대여 신청이 완료되었습니다.");
+          notification.success({ message: "대여 신청이 완료되었습니다." });
           setRentModalBool(false);
         } else {
-          message.error(error);
+          notification.error({ message: error });
+          setRentModalBool(false);
         }
       }
     }

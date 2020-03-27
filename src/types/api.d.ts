@@ -296,13 +296,35 @@ export interface UploadPostVariables {
 // GraphQL query operation: GetMe
 // ====================================================
 
+export interface GetMe_GetMe_user_posts_rents {
+  __typename: "Rent";
+  id: string;
+  status: RentStatus;
+}
+
+export interface GetMe_GetMe_user_posts_files {
+  __typename: "File";
+  id: string;
+  url: string;
+}
+
+export interface GetMe_GetMe_user_posts {
+  __typename: "Post";
+  id: string;
+  rents: (GetMe_GetMe_user_posts_rents | null)[] | null;
+  title: string;
+  files: (GetMe_GetMe_user_posts_files | null)[] | null;
+}
+
 export interface GetMe_GetMe_user {
   __typename: "User";
   username: string;
+  posts: GetMe_GetMe_user_posts[] | null;
 }
 
 export interface GetMe_GetMe {
   __typename: "GetMeResponse";
+  error: string | null;
   user: GetMe_GetMe_user | null;
 }
 
@@ -318,6 +340,12 @@ export interface GetMe {
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
+
+export enum RentStatus {
+  APPLY = "APPLY",
+  DONE = "DONE",
+  RENT = "RENT",
+}
 
 //==============================================================
 // END Enums and Input Objects

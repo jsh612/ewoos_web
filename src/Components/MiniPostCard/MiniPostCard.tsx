@@ -6,6 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { CategoryPost, CategoryPostVariables } from "../../types/api";
 import GET_CATEGORY from "./MiniPostCard.queries";
 import { useHistory } from "react-router-dom";
+import { ISProps } from "../../types/custom";
 
 const SInfiniteScroll = styled(InfiniteScroll)`
   display: grid;
@@ -13,7 +14,7 @@ const SInfiniteScroll = styled(InfiniteScroll)`
   grid-gap: 20px;
   padding: 10px;
   justify-items: center;
-  width: 80vw;
+  width: ${(props: ISProps) => props.theme.basciWidth};
   height: 400px;
 `;
 

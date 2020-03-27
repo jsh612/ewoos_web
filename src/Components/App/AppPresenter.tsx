@@ -8,7 +8,7 @@ import {
 
 import routes from "../../Routes/routes";
 import Home from "../../Routes/Home/Home";
-import Header from "../Header/Header";
+import Header from "../Header";
 import styled from "styled-components";
 import Search from "../../Routes/Search";
 import UploadPost from "../../Routes/Upload/Upload";

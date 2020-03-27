@@ -8,7 +8,8 @@ const theme = {
   searchFontSize: "1vw",
   iconSize: "3vw",
   borderRadius: "10px",
-  basicMarginTop: "2vw"
+  basicMarginTop: "2vw",
+  basciWidth: "80vw"
 } as const;
 
 export type TTheme = typeof theme;
