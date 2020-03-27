@@ -47,7 +47,7 @@ const MyShop: React.FC<IProps> = ({ data, loading }) => {
   }, [loading]);
   return (
     <Container>
-      <Header>나의 상품</Header>
+      <Header>{username}님의 상품</Header>
       {!loading ? <PostListView posts={posts} /> : <Spin size="large" />}
     </Container>
   );

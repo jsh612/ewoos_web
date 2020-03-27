@@ -11,6 +11,7 @@ export const GET_ME = gql`
           rents {
             id
             status
+            message
           }
           title
           files {
@@ -19,6 +20,15 @@ export const GET_ME = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const RENT_STAUTS = gql`
+  mutation RentStatusUpdate($status: String!, $rentId: String!) {
+    RentStatusUpdate(status: $status, rentId: $rentId) {
+      ok
+      error
     }
   }
 `;

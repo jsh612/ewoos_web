@@ -300,6 +300,7 @@ export interface GetMe_GetMe_user_posts_rents {
   __typename: "Rent";
   id: string;
   status: RentStatus;
+  message: string;
 }
 
 export interface GetMe_GetMe_user_posts_files {
@@ -337,14 +338,38 @@ export interface GetMe {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: RentStatusUpdate
+// ====================================================
+
+export interface RentStatusUpdate_RentStatusUpdate {
+  __typename: "RentStatusResponse";
+  ok: boolean;
+  error: string | null;
+}
+
+export interface RentStatusUpdate {
+  RentStatusUpdate: RentStatusUpdate_RentStatusUpdate;
+}
+
+export interface RentStatusUpdateVariables {
+  status: string;
+  rentId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
 
 export enum RentStatus {
-  APPLY = "APPLY",
   DONE = "DONE",
   RENT = "RENT",
+  REQUEST = "REQUEST",
 }
 
 //==============================================================

@@ -2,28 +2,29 @@ import React, { createContext, useReducer, useContext, Dispatch } from "react";
 
 interface IContext {
   dispatch: Dispatch<IAction> | undefined;
-  state: { nation: string | undefined; dataBool: boolean };
+  state: any;
 }
 
-const MainContext = createContext<IContext>({
-  dispatch: undefined,
-  state: { nation: "", dataBool: false }
-});
+const MainContext = createContext<IContext>({ dispatch: undefined, state: "" });
+
+interface IPayLoad {
+  [key: string]: any;
+}
 
 interface IAction {
-  type: "LOCATION";
-  payload: { location: [string] };
+  type: "GET_ME_REFETCH";
+  payload: IPayLoad;
 }
 
 function reducer(state: IAction, action: IAction): any {
   switch (action.type) {
-    case "LOCATION":
+    case "GET_ME_REFETCH":
       return {
         ...state,
-        location: action.payload.location
+        getMeRefetch: action.payload
       };
     default:
-      return { nation: [""] };
+      return { ...state };
   }
 }
 
@@ -43,7 +44,7 @@ export const useDispatch = () => {
   return dispatch;
 };
 
-export const useState = () => {
+export const useReducerState = () => {
   const { state } = useContext(MainContext);
   return state;
 };
