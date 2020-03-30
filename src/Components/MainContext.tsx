@@ -16,9 +16,12 @@ interface IAction {
   payload: IPayLoad;
 }
 
+//actions
+export const GET_ME_REFETCH = "GET_ME_REFETCH";
+
 function reducer(state: IAction, action: IAction): any {
   switch (action.type) {
-    case "GET_ME_REFETCH":
+    case GET_ME_REFETCH:
       return {
         ...state,
         getMeRefetch: action.payload

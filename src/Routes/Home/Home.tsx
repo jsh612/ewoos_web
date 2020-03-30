@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import MiniPostCard from "../../Components/MiniPostCard/MiniPostCard";
+import MiniPostList from "../../Components/MiniPostList/MiniPostList";
 
 const Container = styled.div`
   margin-top: 10px;
@@ -14,7 +14,7 @@ const Container = styled.div`
 const Home: React.FC = () => {
   return (
     <Container>
-      <MiniPostCard />
+      <MiniPostList />
     </Container>
   );
 };

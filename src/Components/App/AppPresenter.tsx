@@ -14,6 +14,7 @@ import Search from "../../Routes/Search";
 import UploadPost from "../../Routes/Upload/Upload";
 import PostDetail from "../../Routes/PostDetail/PostDetail";
 import Category from "../../Routes/Category/Category";
+import UserShop from "../../Routes/UserShop/UserShop";
 import MyLog from "../../Routes/MyLog/MyLog";
 
 const Main = styled.main`
@@ -36,8 +37,8 @@ const AppPresenter: React.FC = () => {
           <Route path={routes.UPLOAD} exact={true} component={UploadPost} />
           <Route path={routes.POST} component={PostDetail} />
           <Route path={routes.CATEGORY} component={Category} />
+          <Route path={routes.MYSHOP} component={UserShop} />
           <Route path={routes.MYLOG} component={MyLog} />
-
           <Redirect from={"*"} to={routes.HOME} />
         </Switch>
       </Main>

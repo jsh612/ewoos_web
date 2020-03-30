@@ -42,7 +42,7 @@ const StatusBtn = styled(Button)`
   margin: 5px 0px 0px 5px;
   border-radius: 10px;
   padding: 5px;
-  align-self: center;
+  align-self: flex-end;
 `;
 
 const Message = styled.p`
@@ -90,7 +90,6 @@ const ListViewItem: React.FC<IListItem> = ({ post, mutationFunc, loading }) => {
       post.rents && post.rents.length !== 0 ? post!.rents![0]!.status : ""
     )
   );
-  console.log("status", status);
 
   const showModal = () => {
     setModalBool(true);

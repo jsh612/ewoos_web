@@ -118,6 +118,9 @@ const UserDrawer: React.FC = () => {
         {isLoggedIn ? (
           <>
             <CategoryColumn>
+              <Link to={routes.MYSHOP}>나의 상점</Link>
+            </CategoryColumn>
+            <CategoryColumn>
               <Link to={routes.MYLOG}>나의 내역</Link>
             </CategoryColumn>
             <CategoryColumn>

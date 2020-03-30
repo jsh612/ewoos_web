@@ -1,30 +1,33 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import MyShop from "../../Components/MyShop";
-import { GET_ME } from "../../shared.queries";
-import { useQuery } from "@apollo/react-hooks";
-import { GetMe } from "../../types/api";
-import { useDispatch } from "../../Components/MainContext";
+import { ISProps } from "../../types/custom";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: ${(props: ISProps) => props.theme.basciWidth};
+  margin-top: 10px;
 `;
 
-const MyLog: React.FC = () => {
-  const dispatch = useDispatch();
-  const { data, loading, refetch } = useQuery<GetMe>(GET_ME, {
-    fetchPolicy: "network-only"
-  });
+const Header = styled.header`
+  width: ${(props: ISProps) => props.theme.basciWidth};
+  align-self: flex-start;
+  font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 2.5);
+  font-weight: 900;
+  padding-bottom: 10px;
+  border-bottom: calc(${(props: ISProps) => props.theme.searchFontSize} / 7)
+    solid black;
+  margin-bottom: 10px;
+`;
 
-  useEffect(() => {
-    dispatch({ type: "GET_ME_REFETCH", payload: refetch });
-  }, [data]);
+const Main = styled.main``;
+
+const MyLog: React.FC = () => {
   return (
     <Container>
-      <MyShop data={data} loading={loading} />
+      <Header>나의 내역</Header>
     </Container>
   );
 };

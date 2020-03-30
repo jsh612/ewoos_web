@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-import MiniPostCard from "../../Components/MiniPostCard/MiniPostCard";
+import MiniPostList from "../../Components/MiniPostList/MiniPostList";
 
 const Container = styled.div`
   margin-top: 10px;
@@ -16,7 +16,7 @@ const Category: React.FC = () => {
   const { categoryName } = useParams();
   return (
     <Container>
-      <MiniPostCard category={categoryName?.toUpperCase()} />
+      <MiniPostList category={categoryName?.toUpperCase()} />
     </Container>
   );
 };

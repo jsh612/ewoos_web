@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { Spin, Card } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { CategoryPost, CategoryPostVariables } from "../../types/api";
-import GET_CATEGORY from "./MiniPostCard.queries";
+import GET_CATEGORY from "./MinPostList.queries";
 import { useHistory } from "react-router-dom";
 import { ISProps } from "../../types/custom";
 
@@ -49,7 +49,7 @@ interface IProps {
   category?: string;
 }
 
-const MiniPostCard: React.FC<IProps> = ({ category }) => {
+const MiniPostList: React.FC<IProps> = ({ category }) => {
   const history = useHistory();
   const items = 10; // 쿼리 당 가져올 post 갯수
 
@@ -134,4 +134,4 @@ const MiniPostCard: React.FC<IProps> = ({ category }) => {
   );
 };
 
-export default MiniPostCard;
+export default MiniPostList;
