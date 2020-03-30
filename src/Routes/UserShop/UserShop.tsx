@@ -21,7 +21,7 @@ const MyLog: React.FC = () => {
 
   useEffect(() => {
     dispatch({ type: GET_ME_REFETCH, payload: refetch });
-  }, [data]);
+  }, []);
   return (
     <Container>
       <MyShop data={data} loading={loading} />

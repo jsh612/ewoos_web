@@ -317,10 +317,22 @@ export interface GetMe_GetMe_user_posts {
   files: (GetMe_GetMe_user_posts_files | null)[] | null;
 }
 
+export interface GetMe_GetMe_user_rents_post {
+  __typename: "Post";
+  id: string;
+  title: string;
+}
+
+export interface GetMe_GetMe_user_rents {
+  __typename: "Rent";
+  post: GetMe_GetMe_user_rents_post;
+}
+
 export interface GetMe_GetMe_user {
   __typename: "User";
   username: string;
   posts: GetMe_GetMe_user_posts[] | null;
+  rents: GetMe_GetMe_user_rents[] | null;
 }
 
 export interface GetMe_GetMe {
@@ -355,6 +367,49 @@ export interface RentStatusUpdate {
 export interface RentStatusUpdateVariables {
   status: string;
   rentId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetMyRents
+// ====================================================
+
+export interface GetMyRents_GetMe_user_rents_post_files {
+  __typename: "File";
+  url: string;
+}
+
+export interface GetMyRents_GetMe_user_rents_post {
+  __typename: "Post";
+  id: string;
+  title: string;
+  files: (GetMyRents_GetMe_user_rents_post_files | null)[] | null;
+}
+
+export interface GetMyRents_GetMe_user_rents {
+  __typename: "Rent";
+  id: string;
+  status: RentStatus;
+  post: GetMyRents_GetMe_user_rents_post;
+}
+
+export interface GetMyRents_GetMe_user {
+  __typename: "User";
+  rents: GetMyRents_GetMe_user_rents[] | null;
+}
+
+export interface GetMyRents_GetMe {
+  __typename: "GetMeResponse";
+  error: string | null;
+  user: GetMyRents_GetMe_user | null;
+}
+
+export interface GetMyRents {
+  GetMe: GetMyRents_GetMe | null;
 }
 
 /* tslint:disable */

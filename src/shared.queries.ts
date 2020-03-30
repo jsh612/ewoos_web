@@ -19,6 +19,12 @@ export const GET_ME = gql`
             url
           }
         }
+        rents {
+          post {
+            id
+            title
+          }
+        }
       }
     }
   }
@@ -29,6 +35,27 @@ export const RENT_STAUTS = gql`
     RentStatusUpdate(status: $status, rentId: $rentId) {
       ok
       error
+    }
+  }
+`;
+
+export const GET_MY_RENTS = gql`
+  query GetMyRents {
+    GetMe {
+      error
+      user {
+        rents {
+          id
+          status
+          post {
+            id
+            title
+            files {
+              url
+            }
+          }
+        }
+      }
     }
   }
 `;
