@@ -7,7 +7,7 @@ import Logo from "./Logo";
 import routes from "../Routes/routes";
 import Input from "./Input";
 import useInput from "../Hooks/useInput";
-import LeftDrawer from "./CateDrawer";
+import CateDrawer from "./CateDrawer";
 import UserDrawer from "./UserDrawer";
 
 interface ISprops {
@@ -20,7 +20,7 @@ const Container = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: 10vw;
+  height: 100px;
   background-color: ${(props: ISprops) => props.theme.blueColor};
   padding: 15px;
   display: flex;
@@ -34,7 +34,9 @@ const Wrapper = styled.header`
   justify-content: center;
   align-items: center;
   width: 60vw;
-  flex-direction: column;
+  @media screen and (max-width: 400px) {
+    flex-direction: column;
+  }
 `;
 
 const SLink = styled(Link)`
@@ -48,7 +50,7 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
   height: auto;
-  width: 40vw;
+  width: 50vw;
 `;
 
 const SearchInput = styled(Input)`
@@ -57,7 +59,7 @@ const SearchInput = styled(Input)`
   padding-left: 15px;
   border-radius: ${(props: ISprops) => props.theme.borderRadius};
   height: 2vw;
-  width: 40vw;
+  width: 60vw;
   font-size: ${(props: ISprops) => props.theme.searchFontSize};
   &::placeholder {
     opacity: 0.8;
@@ -65,6 +67,9 @@ const SearchInput = styled(Input)`
   }
   &:focus {
     box-shadow: -2px -2px 10px pink, 2px 2px 10px pink;
+  }
+  @media screen and (max-width: 400px) {
+    height: 5vw;
   }
 `;
 
@@ -80,7 +85,7 @@ const Header: React.FC = () => {
 
   return (
     <Container>
-      <LeftDrawer />
+      <CateDrawer />
       <Wrapper>
         <SLink to={routes.HOME}>
           <Logo />

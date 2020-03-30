@@ -19,7 +19,8 @@ import MyLog from "../../Routes/MyLog/MyLog";
 
 const Main = styled.main`
   position: relative;
-  margin-top: 11vw;
+  /* margin-top: 11vw; */
+  margin-top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;

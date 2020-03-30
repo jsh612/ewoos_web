@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 const Img = styled.img`
   position: relative;
-  /* height: auto;
-  max-width: 60%;
-  min-width: 200px; */
   width: auto;
-  max-height: 6vw;
+  max-height: 5vw;
+  @media screen and (max-width: 400px) {
+    max-height: 13vw;
+  }
 `;
 
 const Logo: React.FC = () => {

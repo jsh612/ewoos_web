@@ -13,6 +13,9 @@ const MenuBtn = styled(Button)`
 const BtnIcon = styled(MenuUnfoldOutlined)`
   color: ${(props: ISProps) => props.theme.bgColor};
   font-size: ${(props: ISProps) => props.theme.iconSize};
+  @media screen and (max-width: 400px) {
+    font-size: calc(${(props: ISProps) => props.theme.iconSize} * 2);
+  }
 `;
 
 const CategoryColumn = styled.div`

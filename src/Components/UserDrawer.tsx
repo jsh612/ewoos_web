@@ -5,16 +5,11 @@ import { UserOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 
-import { TTheme } from "../Styles/theme";
 import { IS_LOGGED_IN, LOG_USER_OUT } from "../LocalQueries";
 import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import routes from "../Routes/routes";
-
-// theme types
-interface ISProps {
-  theme: TTheme;
-}
+import { ISProps } from "../types/custom";
 
 const MenuBtn = styled(Button)`
   width: ${(props: ISProps) => props.theme.iconSize};
@@ -24,6 +19,9 @@ const MenuBtn = styled(Button)`
 const BtnIcon = styled(UserOutlined)`
   color: ${(props: ISProps) => props.theme.bgColor};
   font-size: ${(props: ISProps) => props.theme.iconSize};
+  @media screen and (max-width: 400px) {
+    font-size: calc(${(props: ISProps) => props.theme.iconSize} * 2);
+  }
 `;
 
 const CategoryColumn = styled.div`
