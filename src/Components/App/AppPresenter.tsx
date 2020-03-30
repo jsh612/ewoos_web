@@ -10,7 +10,7 @@ import routes from "../../Routes/routes";
 import Home from "../../Routes/Home/Home";
 import Header from "../Header";
 import styled from "styled-components";
-import Search from "../../Routes/Search";
+import Search from "../../Routes/Search/Search";
 import UploadPost from "../../Routes/Upload/Upload";
 import PostDetail from "../../Routes/PostDetail/PostDetail";
 import Category from "../../Routes/Category/Category";

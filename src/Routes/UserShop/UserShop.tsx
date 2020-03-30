@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import MyShop from "../../Components/MyShop";
 import { GET_ME } from "../../shared.queries";
 import { useQuery } from "@apollo/react-hooks";
 import { GetMe } from "../../types/api";
-import { useDispatch, GET_ME_REFETCH } from "../../Components/MainContext";
 
 const Container = styled.div`
   display: flex;
@@ -14,14 +13,10 @@ const Container = styled.div`
 `;
 
 const MyLog: React.FC = () => {
-  const dispatch = useDispatch();
-  const { data, loading, refetch } = useQuery<GetMe>(GET_ME, {
+  const { data, loading } = useQuery<GetMe>(GET_ME, {
     fetchPolicy: "network-only"
   });
 
-  useEffect(() => {
-    dispatch({ type: GET_ME_REFETCH, payload: refetch });
-  }, []);
   return (
     <Container>
       <MyShop data={data} loading={loading} />

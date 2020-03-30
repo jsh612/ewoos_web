@@ -260,6 +260,43 @@ export interface ReqRentVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: Search
+// ====================================================
+
+export interface Search_SearchPost_posts_files {
+  __typename: "File";
+  url: string;
+}
+
+export interface Search_SearchPost_posts {
+  __typename: "Post";
+  id: string;
+  title: string;
+  files: (Search_SearchPost_posts_files | null)[] | null;
+}
+
+export interface Search_SearchPost {
+  __typename: "SearchPostResponse";
+  error: string | null;
+  posts: (Search_SearchPost_posts | null)[] | null;
+}
+
+export interface Search {
+  SearchPost: Search_SearchPost;
+}
+
+export interface SearchVariables {
+  term: string;
+  pageNumber: number;
+  items: number;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: UploadPost
 // ====================================================
 

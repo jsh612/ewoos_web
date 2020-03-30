@@ -23,8 +23,8 @@ const SCard = styled(Card)`
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  height: 400px;
-  width: 240px;
+  width: 200px;
+  height: 300px;
   box-shadow: 1px 1px 10px black;
   > .ant-card-body {
     padding: 5px 5px 15px;
@@ -32,8 +32,8 @@ const SCard = styled(Card)`
 `;
 
 const CardImg = styled.img`
-  width: 240px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
 `;
 
 const CardTittl = styled.p`
@@ -71,7 +71,6 @@ const MiniPostList: React.FC<IProps> = ({ category }) => {
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           // updateQuery를 통해 기존 data에 새로운 data 추가
-          console.log("fetchMoreResult", fetchMoreResult);
           if (fetchMoreResult?.CategoryPost?.error) return prev;
           return Object.assign({}, prev, {
             CategoryPost: {
@@ -128,7 +127,7 @@ const MiniPostList: React.FC<IProps> = ({ category }) => {
           <Message>등록된 대여 상품이 없습니다.</Message>
         )
       ) : (
-        <Spin size="large" />
+        <Spin size="default" />
       )}
     </>
   );

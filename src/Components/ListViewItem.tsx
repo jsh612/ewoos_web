@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Modal, Button, List, notification, Spin } from "antd";
 import { Link } from "react-router-dom";
 
 import { GetMe_GetMe_user_posts } from "../types/api";
 import { ISProps } from "../types/custom";
-import { useReducerState } from "./MainContext";
 
 interface ISPropsE extends ISProps {
   status?: string;
@@ -71,7 +70,6 @@ interface IListItem {
 
 const ListViewItem: React.FC<IListItem> = ({ post, mutationFunc, loading }) => {
   const [modalBool, setModalBool] = useState<boolean>(false);
-  const { getMeRefetch } = useReducerState();
 
   const statusTransformer = (status: string) => {
     // 상품 상태값을 한글로 변경
@@ -113,12 +111,6 @@ const ListViewItem: React.FC<IListItem> = ({ post, mutationFunc, loading }) => {
   const handleCancel = () => {
     setModalBool(false);
   };
-
-  useEffect(() => {
-    if (getMeRefetch) {
-      getMeRefetch();
-    }
-  }, [loading]);
 
   return (
     <Item>
