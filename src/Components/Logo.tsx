@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import { ISProps } from "../types/custom";
 
 const Img = styled.img`
   position: relative;
   width: auto;
   max-height: 5vw;
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: ${(props: ISProps) => props.theme.minWidth}) {
     max-height: 13vw;
   }
 `;

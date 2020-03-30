@@ -9,6 +9,7 @@ import Input from "./Input";
 import useInput from "../Hooks/useInput";
 import CateDrawer from "./CateDrawer";
 import UserDrawer from "./UserDrawer";
+import { ISProps } from "../types/custom";
 
 interface ISprops {
   theme: TTheme;
@@ -34,7 +35,7 @@ const Wrapper = styled.header`
   justify-content: center;
   align-items: center;
   width: 60vw;
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: ${(props: ISProps) => props.theme.minWidth}) {
     flex-direction: column;
   }
 `;
@@ -68,7 +69,7 @@ const SearchInput = styled(Input)`
   &:focus {
     box-shadow: -2px -2px 10px pink, 2px 2px 10px pink;
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: ${(props: ISProps) => props.theme.minWidth}) {
     height: 5vw;
   }
 `;

@@ -9,7 +9,8 @@ const theme = {
   iconSize: "3vw",
   borderRadius: "10px",
   basicMarginTop: "2vw",
-  basciWidth: "80vw"
+  basciWidth: "80vw",
+  minWidth: "500px"
 } as const;
 
 export type TTheme = typeof theme;

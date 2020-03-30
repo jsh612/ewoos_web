@@ -13,7 +13,7 @@ const MenuBtn = styled(Button)`
 const BtnIcon = styled(MenuUnfoldOutlined)`
   color: ${(props: ISProps) => props.theme.bgColor};
   font-size: ${(props: ISProps) => props.theme.iconSize};
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: ${(props: ISProps) => props.theme.minWidth}) {
     font-size: calc(${(props: ISProps) => props.theme.iconSize} * 2);
   }
 `;

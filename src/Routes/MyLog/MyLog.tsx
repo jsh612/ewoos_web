@@ -31,7 +31,7 @@ const Main = styled.main`
   width: ${(props: ISProps) => props.theme.basciWidth};
 `;
 
-const Rent = styled.div`
+const Rent = styled(List.Item)`
   display: flex;
   flex-direction: row;
   font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 1.5);
@@ -75,7 +75,7 @@ const MyLog: React.FC = () => {
           bordered
           dataSource={data?.GetMe?.user?.rents!}
           loading={loading}
-          renderItem={(item, index) => (
+          renderItem={item => (
             <Rent>
               <RentTitle to={`/post/${item.post.id}`}>
                 {item.post.title}
