@@ -9,6 +9,7 @@ export default createGlobalStyle`
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: "#EAEDED";
+    height: 650px;
   }
 
   a {

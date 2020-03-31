@@ -22,8 +22,9 @@ const Main = styled.main`
   margin-top: 100px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
+  min-height: calc(100%-100px);
 `;
 
 const AppPresenter: React.FC = () => {

@@ -12,27 +12,32 @@ interface ISPropsE extends ISProps {
 
 const Item = styled(List.Item)`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   font-size: calc(${(props: ISProps) => props.theme.searchFontSize} * 1.5);
 `;
 
-const Header = styled(Link)``;
-
-const ItemMain = styled.div`
-  align-self: flex-end;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
+const Header = styled(Link)`
+  flex: 9;
+  overflow: hidden;
 `;
-const Rent = styled.div`
+
+const Main = styled.main`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  min-width: 50px;
+`;
+
+const StatusText = styled.div`
   color: ${(props: ISPropsE) => {
     return props.status && props.status !== "대여 가능"
       ? props.theme.pinkColor
       : props.theme.blueColor;
   }};
+  text-align: center;
 `;
 
 const StatusBtn = styled(Button)`
@@ -41,7 +46,6 @@ const StatusBtn = styled(Button)`
   margin: 5px 0px 0px 5px;
   border-radius: 10px;
   padding: 5px;
-  align-self: flex-end;
 `;
 
 const Message = styled.p`
@@ -53,7 +57,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
 `;
 
 const ModalBtnWrapper = styled(Wrapper)`
@@ -114,23 +117,17 @@ const ListViewItem: React.FC<IListItem> = ({ post, mutationFunc, loading }) => {
 
   return (
     <Item>
-      <ItemMain>
-        {post.rents && post.rents.length !== 0 ? (
-          post.rents.map(rent => (
-            <Rent status={status} key={rent?.id}>
-              {status}
-            </Rent>
-          ))
-        ) : (
-          <Rent>대여 가능</Rent>
-        )}
-      </ItemMain>
       <Header to={`/post/${post.id}`}>{post.title}</Header>
-      {post.rents && post.rents.length !== 0 && status !== "대여 가능" && (
-        <StatusBtn type="ghost" onClick={showModal}>
-          대여 정보 보기
-        </StatusBtn>
-      )}
+      <Main>
+        <StatusText status={status}>
+          {post.rents && post.rents.length !== 0 ? status : "대여 가능"}
+        </StatusText>
+        {post.rents && post.rents.length !== 0 && status !== "대여 가능" && (
+          <StatusBtn type="ghost" onClick={showModal}>
+            대여 정보 보기
+          </StatusBtn>
+        )}
+      </Main>
       <Modal
         title="신청된 대여"
         visible={modalBool}

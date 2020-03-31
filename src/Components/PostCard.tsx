@@ -74,8 +74,7 @@ const Desc = styled.p`
 `;
 
 const SCarousel = styled(Carousel)`
-  min-width: 300px;
-  width: 50vw;
+  min-width: 50vw;
   height: 300px;
   > .slick-dots li.slick-active button {
     background-color: red;
