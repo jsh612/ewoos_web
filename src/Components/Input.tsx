@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TTheme } from "../Styles/theme";
+import { TTheme } from "../styles/theme";
 
 interface ISprops {
   theme: TTheme;

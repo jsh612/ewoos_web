@@ -5,7 +5,7 @@ import reqwest from "reqwest";
 import styled from "styled-components";
 import { useMutation } from "@apollo/react-hooks";
 
-import { TTheme } from "../Styles/theme";
+import { TTheme } from "../styles/theme";
 import { UploadPost, UploadPostVariables } from "../types/api";
 import { UPLOAD } from "../Routes/Upload/Uplaod.queries";
 import { useHistory } from "react-router-dom";

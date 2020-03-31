@@ -9,7 +9,7 @@ import {
   PostDetail as PostDetailData
 } from "../../types/api";
 import PostCard from "../../Components/PostCard";
-import { TTheme } from "../../Styles/theme";
+import { TTheme } from "../../styles/theme";
 import { Spin } from "antd";
 
 interface ISProps {

@@ -5,7 +5,8 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import client from "./Apollo/apollo";
 import "antd/dist/antd.css";
 import MainProvider from "./Components/MainContext";
-import GrobalStyles from "../src/Styles/globalStyles";
+import GrobalStyles from "./styles/globalStyles";
+
 ReactDOM.render(
   <ApolloProvider client={client}>
     <GrobalStyles />

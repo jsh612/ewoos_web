@@ -4,7 +4,7 @@ import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-import { TTheme } from "../../Styles/theme";
+import { TTheme } from "../../styles/theme";
 import { LOG_USER_IN } from "../../LocalQueries";
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "./Login.queries";

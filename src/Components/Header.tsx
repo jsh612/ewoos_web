@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 
-import { TTheme } from "../Styles/theme";
+import { TTheme } from "../styles/theme";
 import Logo from "./Logo";
 import routes from "../Routes/routes";
 import Input from "./Input";

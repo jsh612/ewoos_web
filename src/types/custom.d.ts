@@ -1,4 +1,4 @@
-import { TTheme } from "./../Styles/theme";
+import { TTheme } from "../styles/theme";
 
 export interface ISProps {
   theme: TTheme;

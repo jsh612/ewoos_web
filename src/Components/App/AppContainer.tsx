@@ -1,7 +1,7 @@
 import React from "react";
 import AppPresenter from "./AppPresenter";
 import { ThemeProvider } from "styled-components";
-import theme from "../../Styles/theme";
+import theme from "../../styles/theme";
 
 const AppContainer = () => {
   return (
