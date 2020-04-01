@@ -1,3 +1,5 @@
+### http://ec2-13-125-225-152.ap-northeast-2.compute.amazonaws.com/
+
 ## 이웃집 대여점 Front-end
 #### 사용 스택
 * React, Apollo, Typescript
