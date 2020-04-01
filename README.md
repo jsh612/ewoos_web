@@ -1,8 +1,7 @@
-﻿# 이웃집 대여점 Front-end
-
-## 사용 스택
+## 이웃집 대여점 Front-end
+#### 사용 스택
 * React, Apollo, Typescript
-## 주요 기능 특징
+#### 주요 기능 특징
 * 회원가입
   - twilio를 통한 휴대폰 번호 인증
 * 로그인
@@ -13,7 +12,7 @@
 
 
 
-# 이웃집 대여점 Back-end(https://github.com/jsh612/ewoos_back)
-## 사용 스택
+## 이웃집 대여점 Back-end(https://github.com/jsh612/ewoos_back)
+#### 사용 스택
 * Typescript, Graphql, Prisma, Postgres, aws EC2, aws S3
 
