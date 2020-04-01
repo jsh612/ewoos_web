@@ -14,5 +14,7 @@
 
 
 # 이웃집 대여점 Back-end
+## https://github.com/jsh612/ewoos_back
 ## 사용 스택
 * Typescript, Graphql, Prisma, Postgres, aws EC2, aws S3
+
