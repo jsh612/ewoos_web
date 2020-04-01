@@ -1,6 +1,6 @@
-### http://ec2-13-125-225-152.ap-northeast-2.compute.amazonaws.com/
+### [이웃집대요소 홈페이지](http://ec2-13-125-225-152.ap-northeast-2.compute.amazonaws.com/)
 
-## 이웃집 대여점 Front-end
+## 이웃집 대여소 Front-end
 #### 사용 스택
 * React, Apollo, Typescript
 #### 주요 기능 특징
@@ -14,7 +14,7 @@
 
 
 
-## 이웃집 대여점 Back-end(https://github.com/jsh612/ewoos_back)
+## 이웃집 대여소 Back-end(https://github.com/jsh612/ewoos_back)
 #### 사용 스택
 * Typescript, Graphql, Prisma, Postgres, aws EC2, aws S3
 
